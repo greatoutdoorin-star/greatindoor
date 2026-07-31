@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+/*
+  Great Indoors — design tokens.
+
+  Values below are lifted from the live site's own stylesheet (its :root block
+  and computed styles), not eyeballed from a screenshot:
+    --orange: #E8622A   --dark: #1a1a1a
+    --warm:   #f5f0e8   --warm2: #ede6d8   --warm3: #e0d6c4   --mid: #888
+    --sidebar: 230px
+  Display face is Playfair Display (700/900), body is DM Sans.
+*/
+
+@theme {
+  /* Brand */
+  --color-accent: #e8622a;
+  --color-accent-hover: #cf5522;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #888888;
+  --color-ink-subtle: #a8a8a8;
+
+  /* Surfaces — a warm paper palette, not white */
+  --color-canvas: #f5f0e8;
+  --color-surface: #ede6d8;
+  --color-surface-deep: #e0d6c4;
+  --color-hairline: #ede6d8;
+  --color-panel: #ffffff;
+
+  /* Dark sections: hero, stat band, footer */
+  --color-dark: #1a1a1a;
+  --color-dark-soft: #262626;
+
+  /* WhatsApp brand green (FAB + CTA) */
+  --color-whatsapp: #25d366;
+  --color-whatsapp-hover: #1fb855;
+
+  /* Typography — Playfair Display for headings, DM Sans for body */
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Type scale, measured from the live site's rendered headings. */
+  --text-nav-primary: 14px;
+  --text-nav-secondary: 13px;
+  --text-body: 15px;
+  --text-body-sm: 13px;
+  --text-body-hd: 16px;
+  --text-body-lg: 18px;
+  --text-body-hu: 21px;
+  --text-h3: 18px;
+  --text-h2: 28px;
+  --text-h1: 34px;
+  --text-h0: 28px;
+  --text-hh: 72px; /* hero display */
+  --text-stat: 40px; /* the 33+ / 20+ / 500+ figures */
+
+  /* Layout — the live rail is a fixed 230px. */
+  --sidebar-w: 230px;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /*
+    Backstop against sideways scroll on phones. A single overflowing child —
+    a carousel track sizing to its slides, an off-screen panel still in
+    layout — otherwise makes the whole page pan horizontally. Fix the offender
+    too; this only stops one from spoiling every page.
+  */
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.7;
+}
+
+/*
+  Hide scrollbars while keeping scroll behaviour intact.
+  Applied to the page and to any element opted in with .no-scrollbar.
+*/
+html,
+body,
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/*
+  Sidebar rail and content offset. Plain CSS rather than Tailwind utilities so
+  the width lives in one variable — and because Tailwind v4 emits nothing for a
+  var() in an arbitrary value.
+*/
+@media (min-width: 1024px) {
+  .site-sidebar {
+    width: var(--sidebar-w);
+    padding-inline: 24px;
+  }
+
+  .site-main {
+    padding-inline-start: var(--sidebar-w);
+  }
+}
+
+/*
+  Announcement bar height. The bar is fixed, so the mobile header and the page
+  content both need to clear it.
+*/
+/*
+  Announcement bar height. This site's promo text is long enough to wrap to two
+  lines on a phone, so the mobile value is taller — a single-line assumption
+  left the bar overlapping the wordmark beneath it.
+*/
+:root {
+  --announcement-h: 60px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --announcement-h: 38px;
+  }
+}
+
+.has-announcement {
+  padding-top: calc(4rem + var(--announcement-h));
+}
+
+/*
+  Mobile header offset. Written here rather than as
+  `top-[var(--announcement-h)]` because Tailwind v4 emits no class for that
+  arbitrary value — the header ends up with no `top` at all.
+*/
+.site-header--offset {
+  top: var(--announcement-h);
+}
+
+@media (min-width: 1024px) {
+  .has-announcement {
+    padding-top: var(--announcement-h);
+  }
+
+  .site-sidebar {
+    top: var(--announcement-h);
+  }
+}
+
+/*
+  Mobile type scale. The desktop hero at 72px wraps to four lines on a 375px
+  screen; these shrink the display sizes below `sm` and leave body copy alone.
+*/
+@media (max-width: 639px) {
+  :root {
+    --text-hh: 38px;
+    --text-h1: 26px;
+    --text-h2: 22px;
+    --text-h0: 22px;
+    --text-h3: 16px;
+    --text-stat: 28px;
+    --text-body-lg: 16px;
+    --text-body-hu: 18px;
+  }
+}
+
+/* Long-form policy copy: comfortable rhythm without per-element classes. */
+.policy-body p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.policy-body h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.policy-body ul {
+  margin-bottom: 1.25rem;
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.policy-body li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.policy-body a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.policy-body a:hover {
+  color: var(--color-accent);
+}
+
+/* Scrolling ticker band. Track holds duplicated content; -50% completes a loop. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll 28s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Nav labels like "Bulk | B2B" and "Why GI?" must never wrap. */
+.site-nav a {
+  white-space: nowrap;
+}
+
+/*
+  Headings use the serif display face. Unlike the outdoor site these ARE bold —
+  the live site renders h1 at 900 and h2 at 700.
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: var(--text-h1);
+}
+h2 {
+  font-size: var(--text-h2);
+}
+h3 {
+  font-size: var(--text-h3);
+}
+h4,
+h5,
+h6 {
+  font-size: var(--text-body-hd);
+}
+
+/* Clamp long-form product/blog copy to a comfortable measure */
+.prose-gi p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
