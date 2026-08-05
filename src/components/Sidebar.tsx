@@ -173,8 +173,8 @@ export default function Sidebar({
           href={SISTER_BRAND.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="justify-self-start whitespace-nowrap rounded-full border border-hairline px-2.5 py-1 font-display font-semibold leading-none text-ink transition-colors hover:border-accent hover:text-accent"
-          style={{ fontSize: "10px" }}
+          className="justify-self-start whitespace-nowrap rounded-full border border-hairline px-3.5 py-2 font-display font-semibold leading-none text-ink transition-colors hover:border-accent hover:text-accent"
+          style={{ fontSize: "12px" }}
         >
           {SISTER_BRAND.name} ↗
         </a>
