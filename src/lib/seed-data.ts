@@ -74,7 +74,7 @@ export const COLLECTIONS: SeedCollection[] = [
     name: "Blinds",
     group: "Interiors",
     icon: "🪟",
-    image: "/catalog/scenes/project-05-roller-blinds.jpg",
+    image: "/catalog/scenes/blinds-roller-cropped.jpg",
     blurb: "Roller, roman, vertical and motorised window treatments.",
   },
   {
@@ -82,7 +82,7 @@ export const COLLECTIONS: SeedCollection[] = [
     name: "Deck Flooring",
     group: "Interiors",
     icon: "🪵",
-    image: "/catalog/products/garden-patio-decking.jpg",
+    image: "/catalog/products/wpc-deck-flooring.jpg",
     blurb: "WPC and hardwood decking for balconies, patios and poolsides.",
   },
   {
@@ -90,7 +90,7 @@ export const COLLECTIONS: SeedCollection[] = [
     name: "Wall-to-Wall Carpets",
     group: "Interiors",
     icon: "🧶",
-    image: "/catalog/scenes/wall-cladding-application-01-dining-room.jpg",
+    image: "",
     blurb: "Broadloom carpeting for offices, hotels and banquet halls.",
   },
   {
@@ -98,7 +98,7 @@ export const COLLECTIONS: SeedCollection[] = [
     name: "Wall Cladding",
     group: "Interiors",
     icon: "🎨",
-    image: "/catalog/products/dark-walnut-wall-cladding.jpg",
+    image: "/catalog/products/dining-room-wall-cladding.jpg",
     blurb: "Wood, stone and louvre panelling for feature walls.",
   },
   {
@@ -146,7 +146,7 @@ export const COLLECTIONS: SeedCollection[] = [
     name: "Sports Flooring",
     group: "Outdoor",
     icon: "🏃",
-    image: "/catalog/scenes/deck-flooring-01-outdoor-seating-area.jpg",
+    image: "",
     blurb: "Court, gym and multipurpose surfaces with certified bounce.",
   },
   {

@@ -18,10 +18,13 @@ export type Product = {
 export default function ProductCard({
   product,
   sizes = "(max-width: 640px) 45vw, (max-width: 1023px) 30vw, 22vw",
+  className = "",
 }: {
   product: Product;
   /** Override where the card sits in a narrower column than a standard row. */
   sizes?: string;
+  /** Extra classes on the card root — used to hide cards at some breakpoints. */
+  className?: string;
 }) {
   const enquiryHref = productEnquiryLink({
     name: product.name,
@@ -29,7 +32,9 @@ export default function ProductCard({
   });
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden border border-hairline bg-panel transition-shadow hover:shadow-lg">
+    <article
+      className={`group flex h-full flex-col overflow-hidden border border-hairline bg-panel transition-shadow hover:shadow-lg ${className}`}
+    >
       {/*
         Square, not 4:3: the catalogue photography is portrait (chairs) and the
         QEDO pack is square 2000x2000, so a landscape box cropped the legs off

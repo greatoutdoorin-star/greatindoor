@@ -72,7 +72,9 @@ export default function CategoryGrid({
 
   return (
     <section
-      className="px-6 py-16 lg:px-14 lg:py-20"
+      // Tinted, not white: the tiles are white cards with white product
+      // photography, so they need a backdrop to read as cards at all.
+      className="bg-surface px-6 py-16 lg:px-14 lg:py-20"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -87,8 +89,9 @@ export default function CategoryGrid({
             className="mt-2 font-body text-ink-muted"
             style={{ fontSize: "var(--text-body)" }}
           >
-            {collections.length} product categories — furniture, flooring, decor
-            &amp; more
+            {/* Template literal, not `{n} product…`: JSX drops the whitespace
+                before a line break, which rendered "15product categories". */}
+            {`${collections.length} product categories — furniture, flooring, decor & more`}
           </p>
         </div>
 
@@ -124,30 +127,43 @@ export default function CategoryGrid({
             href={`/collections/${c.slug}`}
             // Fractional widths minus the gap share, so a whole number of tiles
             // fills the viewport and scroll-snap lands cleanly.
-            className="group block w-[45%] shrink-0 snap-start overflow-hidden bg-panel transition-shadow hover:shadow-lg sm:w-[30%] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
+            className="group block w-[45%] shrink-0 snap-start overflow-hidden border border-hairline bg-panel transition-shadow hover:shadow-lg sm:w-[30%] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
           >
-            {/* Every category has real photography. The icon fallback is kept
-                for a category added before its photo exists — a fallback, not
-                the default look. */}
-            <div className="relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden bg-surface">
+            {/*
+              object-contain, not cover: these are studio cut-outs on white, so
+              cropping them to fill a 3:4 box cut the product. Contained on the
+              same white as the card, the row reads as one set.
+
+              A few categories have no correct photograph yet and fall back to
+              the icon — deliberately quiet, so a missing photo reads as a
+              placeholder rather than as a broken tile.
+            */}
+            <div className="relative flex aspect-[3/4] w-full items-center justify-center overflow-hidden bg-panel">
               {c.image ? (
                 <Image
                   src={c.image}
                   alt={c.name}
                   fill
                   sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, 20vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  // Studio cut-outs are contained on white so nothing is
+                  // cropped; a scene photograph has no white to preserve and
+                  // fills the tile instead.
+                  className={`transition-transform duration-500 group-hover:scale-105 ${
+                    c.image.includes("/scenes/")
+                      ? "object-cover"
+                      : "object-contain p-4"
+                  }`}
                 />
               ) : (
                 <span
                   aria-hidden="true"
-                  className="text-3xl opacity-40 transition-transform duration-500 group-hover:scale-110"
+                  className="text-3xl opacity-25 transition-transform duration-500 group-hover:scale-110"
                 >
                   {c.icon}
                 </span>
               )}
             </div>
-            <div className="px-3 py-3">
+            <div className="border-t border-hairline px-3 py-3">
               <p
                 className="font-body font-medium text-ink transition-colors group-hover:text-accent"
                 style={{ fontSize: "var(--text-body-sm)" }}

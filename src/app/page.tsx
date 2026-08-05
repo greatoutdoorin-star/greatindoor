@@ -13,8 +13,13 @@ import { getAllProducts, getCollections, getSettings } from "@/lib/catalog";
 /**
  * How many products the featured row shows. Capped so "View all" leads
  * somewhere new — rendering the whole catalogue here made the link a no-op.
+ *
+ * 8 fills two clean rows on desktop (4-up) but four rows on a phone (2-up),
+ * which is a long scroll before the next section. The last two are hidden
+ * below `sm` rather than dropped, so desktop keeps its full grid.
  */
 const FEATURED_LIMIT = 8;
+const FEATURED_MOBILE_LIMIT = 6;
 
 export default async function Home() {
   const [products, collections, settings] = await Promise.all([
@@ -42,7 +47,9 @@ export default async function Home() {
       <Marquee items={tickerItems} />
       <CategoryGrid collections={collections} />
 
-      <section className="bg-surface px-6 py-16 lg:px-14 lg:py-20">
+      {/* Canvas, not surface: CategoryGrid above is tinted, and two tinted
+          sections in a row merge into one block. */}
+      <section className="bg-canvas px-6 py-16 lg:px-14 lg:py-20">
         <div className="mb-10 flex flex-wrap items-baseline justify-between gap-4">
           <h2 style={{ fontSize: "var(--text-h2)" }}>Featured Products</h2>
           <Link
@@ -55,9 +62,12 @@ export default async function Home() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {featured.map((p) => (
+          {featured.map((p, i) => (
             <ProductCard
               key={p.slug}
+              // Beyond the mobile limit the card is hidden below `sm` — see
+              // FEATURED_MOBILE_LIMIT.
+              className={i >= FEATURED_MOBILE_LIMIT ? "hidden sm:flex" : ""}
               product={{
                 name: p.name,
                 slug: p.slug,
