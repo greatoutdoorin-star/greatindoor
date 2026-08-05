@@ -1,23 +1,49 @@
 "use client";
 
 import { useState } from "react";
+import type { Spec } from "@/lib/catalog";
 
 type Props = {
+  /** Free-form selling points, rendered as bullets. */
   specs: string[];
+  /** Tabulated label/value specifications from the supplier catalogue. */
+  details?: Spec[];
+  /** Finish/colour options. */
+  colours?: string[];
   variantLabel?: string | null;
   variants?: string[];
 };
 
 /**
  * "PRODUCT SPECIFICATIONS" disclosure, matching the reference product page.
- * Variant options are listed here as text rather than as a selector — this site
- * has no cart, so the choice is made in the WhatsApp conversation.
+ *
+ * Catalogue specs (material, dimensions, packing) render as a label/value
+ * table — a spec sheet reads far better aligned than as prose bullets — with
+ * the free-form selling points kept underneath as a list.
+ *
+ * Variant and colour options are listed as text rather than as a selector:
+ * this site has no cart, so the choice is made in the WhatsApp conversation.
  */
-export default function SpecsAccordion({ specs, variantLabel, variants }: Props) {
-  const [open, setOpen] = useState(false);
+export default function SpecsAccordion({
+  specs,
+  details = [],
+  colours = [],
+  variantLabel,
+  variants,
+}: Props) {
+  // Open by default: on a made-to-order catalogue the dimensions are the whole
+  // decision, so hiding them behind a click costs more than the vertical space.
+  const [open, setOpen] = useState(true);
   const hasVariants = Boolean(variants && variants.length > 0);
 
-  if (specs.length === 0 && !hasVariants) return null;
+  if (
+    specs.length === 0 &&
+    details.length === 0 &&
+    colours.length === 0 &&
+    !hasVariants
+  ) {
+    return null;
+  }
 
   return (
     <div className="mt-10 border-t border-hairline">
@@ -49,6 +75,33 @@ export default function SpecsAccordion({ specs, variantLabel, variants }: Props)
         }`}
       >
         <div className="overflow-hidden">
+          {details.length > 0 && (
+            <dl className="mb-6 border-t border-hairline">
+              {details.map((d) => (
+                <div
+                  key={d.label}
+                  // Stacks on mobile, two columns from sm — a long value like
+                  // the dimension string has no room to sit beside its label
+                  // on a 375px screen.
+                  className="grid gap-1 border-b border-hairline py-3 sm:grid-cols-[168px_1fr] sm:gap-4"
+                >
+                  <dt
+                    className="font-body font-medium uppercase tracking-[0.1em] text-ink-muted"
+                    style={{ fontSize: "11px" }}
+                  >
+                    {d.label}
+                  </dt>
+                  <dd
+                    className="font-body text-ink"
+                    style={{ fontSize: "var(--text-body)" }}
+                  >
+                    {d.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
           {specs.length > 0 && (
             <ul className="space-y-2 font-body text-ink-muted">
               {specs.map((s) => (
@@ -60,8 +113,17 @@ export default function SpecsAccordion({ specs, variantLabel, variants }: Props)
             </ul>
           )}
 
-          {hasVariants && (
+          {colours.length > 0 && (
             <div className={specs.length > 0 ? "mt-6" : ""}>
+              <p className="font-display font-semibold">Available colours</p>
+              <p className="mt-2 font-body text-ink-muted">
+                {colours.join(" · ")}
+              </p>
+            </div>
+          )}
+
+          {hasVariants && (
+            <div className="mt-6">
               <p className="font-display font-semibold">
                 {variantLabel || "Options"}
               </p>

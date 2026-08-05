@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Supplier source packages and catalogues.
+#
+# Everything under public/ is served to the browser and uploaded on every
+# deploy, so only the derived web images in public/catalog/ belong there. These
+# originals — PNG masters, PDFs, the raw extracts — are ~293MB of build ballast
+# and are kept locally as the source of truth, not shipped.
+#
+# public/catalog/ IS committed: it holds the WebP/JPG the site actually renders.
+/public/Great-Indoors-Extracted-Images/
+/public/Qedo-Ecommerce-Images-Final/
+/public/Zeta-Seatings-Ecommerce-Images-Updated/
+/public/*.pdf

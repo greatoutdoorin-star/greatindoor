@@ -9,7 +9,7 @@ import { SISTER_BRAND } from "@/lib/site";
  */
 export default function SisterBrand() {
   return (
-    <section className="bg-surface px-6 py-16 lg:px-14 lg:py-20">
+    <section className="bg-canvas px-6 py-16 lg:px-14 lg:py-20">
       <div className="mx-auto max-w-3xl text-center">
         <h2 style={{ fontSize: "var(--text-h2)" }}>{SISTER_BRAND.heading}</h2>
         <p

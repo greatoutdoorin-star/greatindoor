@@ -64,7 +64,7 @@ export default function ProductEnquiry({ name, slug }: Props) {
         className="mt-4 font-body text-ink-muted"
         style={{ fontSize: "var(--text-body-sm)" }}
       >
-        Our landscape stylist will help you choose cane, rope and upholstery
+        Our in-house stylist will help you choose dimensions, fabric and finish
         options.
       </p>
     </div>

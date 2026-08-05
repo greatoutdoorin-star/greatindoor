@@ -29,8 +29,18 @@ export default function ProductCard({
   });
 
   return (
-    <article className="group flex h-full flex-col bg-panel">
-      <div className="relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden bg-surface-deep">
+    <article className="group flex h-full flex-col overflow-hidden border border-hairline bg-panel transition-shadow hover:shadow-lg">
+      {/*
+        Square, not 4:3: the catalogue photography is portrait (chairs) and the
+        QEDO pack is square 2000x2000, so a landscape box cropped the legs off
+        every chair. Paired with object-contain below, the whole product is
+        always visible.
+
+        The panel background matches the card body — a tinted box here made the
+        letterboxing around each portrait photo read as a gap rather than as
+        part of the card.
+      */}
+      <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden bg-panel">
         {/* The link is the image's positioned ancestor, so it needs
             `absolute inset-0` — with a static link `fill` resolves against the
             card wrapper and Next logs an invalid-position warning. */}
@@ -44,7 +54,10 @@ export default function ProductCard({
               alt={product.name}
               fill
               sizes={sizes}
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              // object-contain, so a portrait chair is never cropped. The
+              // padding keeps it off the card edges, since contain fits the
+              // image tight to the box.
+              className="p-3 object-contain transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
             <span
@@ -58,19 +71,22 @@ export default function ProductCard({
 
         {/* Mobile: an always-tappable round button — :hover never fires on
             touch, so a hover-only control would make the site's single
-            conversion action unreachable on phones. */}
+            conversion action unreachable on phones.
+
+            Kept small (32px) and tucked into the corner: at 40px on every card
+            in a two-column grid it read as clutter rather than as an action. */}
         <a
           href={enquiryHref}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Enquire about ${product.name} on WhatsApp`}
-          className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-whatsapp text-white shadow-md transition-colors hover:bg-whatsapp-hover lg:hidden"
+          className="absolute bottom-1.5 right-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-whatsapp text-white shadow-sm transition-colors hover:bg-whatsapp-hover lg:hidden"
         >
           <svg
             viewBox="0 0 24 24"
             fill="currentColor"
             aria-hidden="true"
-            className="h-5 w-5"
+            className="h-4 w-4"
           >
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884a9.82 9.82 0 0 1 6.988 2.896 9.83 9.83 0 0 1 2.893 6.994c-.003 5.45-4.437 9.885-9.885 9.885M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.359.101 11.945c0 2.096.549 4.142 1.595 5.945L0 24l6.305-1.654a11.9 11.9 0 0 0 5.71 1.454h.006c6.585 0 11.946-5.359 11.949-11.945a11.9 11.9 0 0 0-3.45-8.406" />
           </svg>
@@ -86,7 +102,9 @@ export default function ProductCard({
         </a>
       </div>
 
-      <div className="flex flex-1 flex-col px-4 py-4">
+      {/* Hairline between photo and copy, so the two halves read as one card
+          rather than an image with text floating under it. */}
+      <div className="flex flex-1 flex-col border-t border-hairline px-4 py-4">
         {product.badge && (
           <p
             className="font-body font-medium uppercase tracking-[0.14em] text-accent"

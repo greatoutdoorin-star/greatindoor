@@ -3,58 +3,67 @@
 /*
   Great Indoors — design tokens.
 
-  Values below are lifted from the live site's own stylesheet (its :root block
-  and computed styles), not eyeballed from a screenshot:
-    --orange: #E8622A   --dark: #1a1a1a
-    --warm:   #f5f0e8   --warm2: #ede6d8   --warm3: #e0d6c4   --mid: #888
-    --sidebar: 230px
-  Display face is Playfair Display (700/900), body is DM Sans.
+  Matched to the sister site greatoutdoor.in: values below were read from its
+  compiled stylesheet (:root block plus the max-width:639px override), not
+  eyeballed from a screenshot. The two sites now share one design system —
+  same token names, same values, same Montserrat/Poppins pairing — so the only
+  difference between them is content.
+
+  A few tokens have no counterpart on GO.in (--color-surface-deep,
+  --color-panel, --color-ink-subtle, --text-stat). Those are kept because this
+  site's components rely on them, and are derived from the new neutral palette
+  rather than left behind on the old warm one.
 */
 
 @theme {
   /* Brand */
-  --color-accent: #e8622a;
-  --color-accent-hover: #cf5522;
-  --color-ink: #1a1a1a;
-  --color-ink-muted: #888888;
-  --color-ink-subtle: #a8a8a8;
+  --color-accent: #fe6f00;
+  --color-accent-hover: #e56400;
+  --color-ink: #282828;
+  --color-ink-muted: #6b6b6b;
+  --color-ink-subtle: #9a9a9a;
 
-  /* Surfaces — a warm paper palette, not white */
-  --color-canvas: #f5f0e8;
-  --color-surface: #ede6d8;
-  --color-surface-deep: #e0d6c4;
-  --color-hairline: #ede6d8;
+  /* Surfaces — white canvas with a light grey lift, as on GO.in */
+  --color-canvas: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-surface-deep: #ebebeb;
+  --color-hairline: #e5e5e5;
   --color-panel: #ffffff;
 
   /* Dark sections: hero, stat band, footer */
-  --color-dark: #1a1a1a;
-  --color-dark-soft: #262626;
+  --color-dark: #282828;
+  --color-dark-soft: #383838;
 
   /* WhatsApp brand green (FAB + CTA) */
   --color-whatsapp: #25d366;
   --color-whatsapp-hover: #1fb855;
 
-  /* Typography — Playfair Display for headings, DM Sans for body */
-  --font-display: var(--font-playfair), Georgia, serif;
-  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  /* Typography — Montserrat for headings, Poppins for body, matching the
+     sister site exactly (same variables, same fallbacks). Both are geometric
+     sans faces, so the fallbacks are sans too: the old Georgia/serif fallback
+     would have flashed a serif before the swap. */
+  --font-display: var(--font-montserrat), system-ui, sans-serif;
+  --font-body: var(--font-poppins), system-ui, sans-serif;
 
-  /* Type scale, measured from the live site's rendered headings. */
-  --text-nav-primary: 14px;
+  /* Type scale — GO.in's desktop values. Mobile overrides live in the
+     max-width:639px block further down, matching its breakpoint. */
+  --text-nav-primary: 14.8px;
   --text-nav-secondary: 13px;
-  --text-body: 15px;
-  --text-body-sm: 13px;
-  --text-body-hd: 16px;
-  --text-body-lg: 18px;
-  --text-body-hu: 21px;
-  --text-h3: 18px;
-  --text-h2: 28px;
-  --text-h1: 34px;
-  --text-h0: 28px;
-  --text-hh: 72px; /* hero display */
-  --text-stat: 40px; /* the 33+ / 20+ / 500+ figures */
+  --text-body: 13.9px;
+  --text-body-sm: 12.1px;
+  --text-body-hd: 14.9px;
+  --text-body-lg: 16.7px;
+  --text-body-hu: 20.4px;
+  --text-h4: 15.6px;
+  --text-h3: 16.7px;
+  --text-h2: 18.75px;
+  --text-h1: 26px;
+  --text-h0: 31.25px;
+  --text-hh: 50px; /* hero display */
+  --text-stat: 40px; /* the 33+ / 15+ / 500+ figures */
 
-  /* Layout — the live rail is a fixed 230px. */
-  --sidebar-w: 230px;
+  /* Layout — GO.in's rail is fluid rather than a fixed 230px. */
+  --sidebar-w: clamp(240px, 20vw, 360px);
 }
 
 html {
@@ -155,19 +164,50 @@ body::-webkit-scrollbar,
 }
 
 /*
-  Mobile type scale. The desktop hero at 72px wraps to four lines on a 375px
-  screen; these shrink the display sizes below `sm` and leave body copy alone.
+  Mobile type scale, matching greatoutdoor.in's own max-width:639px override.
+  Display sizes shrink below `sm`; body copy is left alone.
 */
 @media (max-width: 639px) {
   :root {
-    --text-hh: 38px;
-    --text-h1: 26px;
-    --text-h2: 22px;
+    --text-hh: 28px;
     --text-h0: 22px;
-    --text-h3: 16px;
-    --text-stat: 28px;
-    --text-body-lg: 16px;
-    --text-body-hu: 18px;
+    --text-h1: 20px;
+    --text-h2: 17px;
+    --text-h3: 15.5px;
+    --text-h4: 14.5px;
+    /* Body copy stays legible — 13px is the floor for sustained reading. */
+    --text-body: 13.5px;
+    --text-body-sm: 12px;
+    --text-body-hd: 14px;
+    --text-body-lg: 15px;
+    --text-body-hu: 17px;
+    /* The rail is a full-screen drawer on mobile, so its type can size down
+       with everything else rather than staying at the desktop rail size. */
+    --text-nav-primary: 14px;
+    --text-nav-secondary: 12.5px;
+    /* No GO.in counterpart — scaled in proportion to the --text-hh drop. */
+    --text-stat: 26px;
+  }
+
+  /*
+    Tighten the vertical rhythm to match. The desktop section padding (py-16 /
+    py-20) leaves a phone scrolling through empty bands between every section,
+    which reads as unfinished rather than spacious.
+
+    Scoped to sections that actually set py-16/py-20 so it cannot flatten the
+    hero (aspect-ratio driven) or the stat band (py-8).
+  */
+  main section.py-16,
+  main section.py-20 {
+    padding-top: 2.75rem;
+    padding-bottom: 2.75rem;
+  }
+
+  /* Headings lose their desktop letter-spacing, which fights at small sizes. */
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.01em;
   }
 }
 
@@ -216,8 +256,18 @@ body::-webkit-scrollbar,
   animation: marquee-scroll 28s linear infinite;
 }
 
+/* Slower than the text ticker: logos need long enough to be recognised. */
+.logo-marquee-track {
+  animation: marquee-scroll 45s linear infinite;
+}
+
+.logo-marquee:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .marquee-track {
+  .marquee-track,
+  .logo-marquee-track {
     animation: none;
   }
 }

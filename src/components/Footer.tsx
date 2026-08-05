@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
+import { SISTER_BRAND, SITE } from "@/lib/site";
 
 const COMPANY_LINKS = [
   { label: "About Us", href: "/pages/about" },
   { label: "Contact", href: "/pages/contact" },
   { label: "FAQs", href: "/pages/faqs" },
   { label: "Instagram", href: "https://www.instagram.com/greatindoor.in/", external: true },
+  // Sister brand, mirroring how greatoutdoor.in links back to this site.
+  { label: SISTER_BRAND.name, href: SISTER_BRAND.url, external: true },
 ];
 
 /** Slugs mirror the existing site's URLs so inbound links keep working. */
@@ -24,10 +26,10 @@ export default function Footer() {
             className="font-display tracking-[0.12em]"
             style={{ fontSize: "var(--text-body-sm)" }}
           >
-            GREAT OUTDOOR
+            GREAT INDOORS
           </p>
           <p className="mt-10 font-display" style={{ fontSize: "var(--text-h0)" }}>
-            Enhance your Landscape.
+            Quality, Comfort and Class.
           </p>
         </div>
 

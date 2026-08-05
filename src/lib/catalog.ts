@@ -9,13 +9,35 @@ import { COLLECTIONS, PRODUCTS } from "./seed-data";
  * change inside this file only — no page or component has to be touched.
  */
 
+/**
+ * A single labelled specification, e.g. { label: "Dimensions", value: "765 (H)
+ * × 355 (L) × 403 (W) mm" }.
+ *
+ * Structured rather than a pre-formatted sentence so the product page can lay
+ * specs out as a table, and so a value stays machine-readable for the Product
+ * JSON-LD.
+ */
+export type Spec = {
+  label: string;
+  value: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
   description: string;
   collection: string;
   badge: string;
+  /**
+   * Free-form selling points, shown as a bulleted list. Kept alongside
+   * `details` because not every claim ("Installation included within Jaipur")
+   * is a label/value pair.
+   */
   specs: string[];
+  /** Tabulated specifications from the supplier catalogue. */
+  details: Spec[];
+  /** Finish/colour options, listed as text — the choice is made on WhatsApp. */
+  colours: string[];
   images: string[];
 };
 
@@ -50,6 +72,10 @@ export const getAllProducts = cache(async (): Promise<Product[]> => {
     collection: p.collection,
     badge: p.badge,
     specs: p.specs,
+    // Optional in the seed file; normalised to arrays here so consumers never
+    // have to guard against undefined.
+    details: p.details ?? [],
+    colours: p.colours ?? [],
     images: p.images,
   }));
 });
@@ -101,19 +127,23 @@ export async function getCollection(
   return collections.find((c) => c.slug === slug);
 }
 
-/** Related products: same collection first, then anything else, excluding self. */
+/**
+ * Related products — same collection only, excluding the product itself.
+ *
+ * Deliberately not padded out to `limit` with unrelated items: with a catalogue
+ * this small that meant a Chesterfield sofa recommending luxury tents. An empty
+ * result is fine — the product page hides the section entirely.
+ */
 export async function getRelatedProducts(
   product: Product,
   limit = 8,
 ): Promise<Product[]> {
   const products = await getAllProducts();
-  const same = products.filter(
-    (p) => p.collection === product.collection && p.slug !== product.slug,
-  );
-  const others = products.filter(
-    (p) => p.collection !== product.collection && p.slug !== product.slug,
-  );
-  return [...same, ...others].slice(0, limit);
+  return products
+    .filter(
+      (p) => p.collection === product.collection && p.slug !== product.slug,
+    )
+    .slice(0, limit);
 }
 
 /**

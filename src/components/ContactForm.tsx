@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { submitLead } from "@/lib/submit-lead";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 /**
- * General contact form. As with the B2B form, submitting composes a pre-filled
- * WhatsApp message rather than posting to a server — this site has no backend
- * lead store by design.
+ * General contact form.
+ *
+ * Submitting does two things: records the enquiry server-side, then hands off
+ * to a pre-filled WhatsApp message. The record matters because the handoff is
+ * not guaranteed — the visitor may never send the drafted message.
  */
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -15,6 +18,7 @@ export default function ContactForm() {
     phone: "",
     message: "",
   });
+  const [sent, setSent] = useState(false);
 
   const set =
     (k: keyof typeof form) =>
@@ -23,6 +27,7 @@ export default function ContactForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     const lines = [
       `Name: ${form.name}`,
       form.email && `Email: ${form.email}`,
@@ -30,7 +35,22 @@ export default function ContactForm() {
       "",
       form.message,
     ].filter(Boolean);
+
+    // Opened synchronously inside the submit handler: browsers only treat
+    // window.open as user-initiated in the same tick, so awaiting the fetch
+    // first would get the WhatsApp tab blocked as a popup.
     window.open(buildWhatsAppLink(lines.join("\n")), "_blank", "noopener");
+
+    // Fire-and-forget; the lead is recorded whether or not the message is sent.
+    void submitLead({
+      source: "contact",
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      message: form.message,
+    });
+
+    setSent(true);
   };
 
   const field =
@@ -82,6 +102,19 @@ export default function ContactForm() {
       >
         Send on WhatsApp
       </button>
+
+      {/* Shown after submit so a blocked popup is not a silent dead end —
+          the enquiry has still reached us either way. */}
+      {sent && (
+        <p
+          className="mt-5 font-body text-ink-muted"
+          aria-live="polite"
+          style={{ fontSize: "var(--text-body-sm)" }}
+        >
+          Thanks — we have your enquiry. If WhatsApp didn&apos;t open, we&apos;ll
+          still get back to you on the number you gave us.
+        </p>
+      )}
     </form>
   );
 }

@@ -10,12 +10,20 @@ import SiteShell from "@/components/SiteShell";
 import StylistPromo from "@/components/StylistPromo";
 import { getAllProducts, getCollections, getSettings } from "@/lib/catalog";
 
+/**
+ * How many products the featured row shows. Capped so "View all" leads
+ * somewhere new — rendering the whole catalogue here made the link a no-op.
+ */
+const FEATURED_LIMIT = 8;
+
 export default async function Home() {
   const [products, collections, settings] = await Promise.all([
     getAllProducts(),
     getCollections(),
     getSettings(),
   ]);
+
+  const featured = products.slice(0, FEATURED_LIMIT);
 
   const navCollections = collections.map((c) => ({
     name: c.name,
@@ -42,12 +50,12 @@ export default async function Home() {
             className="font-body underline underline-offset-4 transition-colors hover:text-accent"
             style={{ fontSize: "var(--text-body-sm)" }}
           >
-            View all
+            View all {products.length} products
           </Link>
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {products.map((p) => (
+          {featured.map((p) => (
             <ProductCard
               key={p.slug}
               product={{

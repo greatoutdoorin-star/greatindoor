@@ -28,10 +28,16 @@ export const CONTACT = {
   address: "272A Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004",
 } as const;
 
-/** Headline figures in the band beneath the hero. */
+/**
+ * Headline figures in the band beneath the hero.
+ *
+ * Keep "Product Categories" in step with COLLECTIONS in seed-data.ts — it read
+ * "20+" against a catalogue of 15, which the category grid contradicted on the
+ * same page.
+ */
 export const STATS = [
   { value: "33+", label: "Years Experience" },
-  { value: "20+", label: "Product Categories" },
+  { value: "15+", label: "Product Categories" },
   { value: "500+", label: "Projects Delivered" },
 ] as const;
 
@@ -49,41 +55,33 @@ export const WHATSAPP_TEMPLATES = {
 } as const;
 
 /**
- * Sidebar navigation, grouped as on the live site. Slugs match collection
- * slugs; a group renders only the collections that actually exist.
+ * Sidebar navigation.
+ *
+ * Flattened to a single list — the sister site runs its rail without group
+ * headings, and three headings over twelve items added structure the page did
+ * not need.
+ *
+ * Icons are kept HERE and only here. In the rail they act as scan anchors
+ * against repeating text; on the category tiles and product cards they stood in
+ * for photography, which now exists, so they are gone from those.
+ *
+ * "All Products" leads because it is the most common intent. Slugs match
+ * collection slugs, and an item renders only if its collection exists.
  */
-export const NAV_GROUPS = [
-  {
-    label: "Furniture",
-    items: [
-      { label: "Office Furniture", slug: "office-furniture", icon: "🪑" },
-      { label: "Cafe Furniture", slug: "cafe-furniture", icon: "☕" },
-      { label: "Sofa", slug: "sofa", icon: "🛋️" },
-    ],
-  },
-  {
-    label: "Interiors",
-    items: [
-      { label: "Blinds", slug: "blinds", icon: "🪟" },
-      { label: "Deck Flooring", slug: "deck-flooring", icon: "🪵" },
-      {
-        label: "Wall-to-Wall Carpets",
-        slug: "wall-to-wall-carpets",
-        icon: "🧶",
-      },
-      { label: "Wall Cladding", slug: "wall-cladding", icon: "🎨" },
-      { label: "Planters", slug: "planters", icon: "🪴" },
-    ],
-  },
-  {
-    label: "Outdoor",
-    items: [
-      { label: "Awnings & Umbrellas", slug: "awnings-umbrellas", icon: "⛱️" },
-      { label: "Tensile Structures", slug: "tensile-structures", icon: "🏗️" },
-      { label: "Luxury Tents", slug: "luxury-tents", icon: "⛺" },
-      { label: "Artificial Grass", slug: "artificial-grass", icon: "🍃" },
-    ],
-  },
+export const NAV_ITEMS = [
+  { label: "All Products", slug: "all", icon: "▦" },
+  { label: "Office Furniture", slug: "office-furniture", icon: "🪑" },
+  { label: "Cafe Furniture", slug: "cafe-furniture", icon: "☕" },
+  { label: "Sofa", slug: "sofa", icon: "🛋️" },
+  { label: "Blinds", slug: "blinds", icon: "🪟" },
+  { label: "Deck Flooring", slug: "deck-flooring", icon: "🪵" },
+  { label: "Wall-to-Wall Carpets", slug: "wall-to-wall-carpets", icon: "🧶" },
+  { label: "Wall Cladding", slug: "wall-cladding", icon: "🎨" },
+  { label: "Planters", slug: "planters", icon: "🪴" },
+  { label: "Awnings & Umbrellas", slug: "awnings-umbrellas", icon: "⛱️" },
+  { label: "Tensile Structures", slug: "tensile-structures", icon: "🏗️" },
+  { label: "Luxury Tents", slug: "luxury-tents", icon: "⛺" },
+  { label: "Artificial Grass", slug: "artificial-grass", icon: "🍃" },
 ] as const;
 
 /**
@@ -104,6 +102,6 @@ export const SISTER_BRAND = {
 export const SECONDARY_NAV = [
   { label: "Bulk | B2B", href: "/pages/b2b-leads" },
   { label: "FAQs", href: "/pages/faqs" },
-  { label: "Why GI?", href: "/pages/why-gi" },
+  { label: "About Us", href: "/pages/about" },
   { label: "Blogs", href: "/blogs" },
 ] as const;

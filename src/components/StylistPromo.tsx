@@ -39,7 +39,7 @@ export default function StylistPromo() {
             className="font-body text-ink-muted underline underline-offset-4 transition-colors hover:text-accent"
             style={{ fontSize: "var(--text-body-sm)" }}
           >
-            ✉️ {CONTACT.email}
+            {CONTACT.email}
           </a>
         </div>
       </div>
@@ -47,10 +47,10 @@ export default function StylistPromo() {
       <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {SERVICES.map((s) => (
           <div key={s.title} className="bg-panel px-5 py-6">
-            <span aria-hidden="true" className="text-2xl">
-              {s.icon}
-            </span>
-            <h3 className="mt-3" style={{ fontSize: "var(--text-body-hd)" }}>
+            {/* A short accent rule instead of an emoji — it marks the card
+                without pulling the eye off the heading. */}
+            <span aria-hidden="true" className="block h-0.5 w-8 bg-accent" />
+            <h3 className="mt-4" style={{ fontSize: "var(--text-body-hd)" }}>
               {s.title}
             </h3>
             <p

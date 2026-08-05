@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/JsonLd";
 import ProductCarousel from "@/components/ProductCarousel";
 import ProductEnquiry from "@/components/ProductEnquiry";
 import ProductGallery from "@/components/ProductGallery";
@@ -13,6 +14,7 @@ import {
   getProduct,
   getRelatedProducts,
 } from "@/lib/catalog";
+import { breadcrumbSchema, productSchema } from "@/lib/structured-data";
 import { PRICE_PLACEHOLDER } from "@/lib/whatsapp";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -48,8 +50,21 @@ export default async function ProductPage({ params }: Props) {
     getRelatedProducts(product),
   ]);
 
+  // Mirrors the visible breadcrumb below — Google expects the markup and the
+  // rendered trail to agree.
+  const trail = [
+    { name: "Home", path: "/" },
+    ...(collection
+      ? [{ name: collection.name, path: `/collections/${collection.slug}` }]
+      : []),
+    { name: product.name, path: `/products/${product.slug}` },
+  ];
+
   return (
     <SiteShell collections={navCollections}>
+      <JsonLd schema={productSchema(product)} />
+      <JsonLd schema={breadcrumbSchema(trail)} />
+
       <div className="grid gap-10 px-6 pt-8 lg:grid-cols-2 lg:gap-16 lg:px-14 lg:pt-14">
         {/*
           Copy column. On desktop it sits left with the gallery on the right,
@@ -111,7 +126,11 @@ export default async function ProductPage({ params }: Props) {
             </div>
           )}
 
-          <SpecsAccordion specs={product.specs} />
+          <SpecsAccordion
+            specs={product.specs}
+            details={product.details}
+            colours={product.colours}
+          />
         </div>
 
         <div className="order-1 min-w-0 lg:order-2">

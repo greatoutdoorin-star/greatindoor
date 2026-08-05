@@ -1,10 +1,34 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 type Props = { text: string };
 
-const STORAGE_KEY = "go-announcement-dismissed";
+const STORAGE_KEY = "gi-announcement-dismissed";
+
+/** Notifies subscribed bars when this tab dismisses the announcement. */
+const listeners = new Set<() => void>();
+
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  return () => {
+    listeners.delete(onChange);
+  };
+}
+
+function isDismissed() {
+  return sessionStorage.getItem(STORAGE_KEY) === "1";
+}
+
+/** On the server nothing is dismissed yet — the bar resolves after hydration. */
+function isDismissedOnServer() {
+  return true;
+}
+
+function dismiss() {
+  sessionStorage.setItem(STORAGE_KEY, "1");
+  for (const listener of listeners) listener();
+}
 
 /**
  * Orange promo band pinned above the page.
@@ -13,17 +37,22 @@ const STORAGE_KEY = "go-announcement-dismissed";
  * returns on the visitor's next session, so a promo is not silenced forever
  * after one click.
  *
- * Rendered only after mount because the dismissed state lives in the browser;
- * server-rendering it would cause a hydration mismatch.
+ * The dismissed flag is browser-only state, so it is read through
+ * `useSyncExternalStore` with a server snapshot of "dismissed". That keeps the
+ * server and first client render identical (no hydration mismatch) without
+ * setting state from an effect, which causes a second render pass on every
+ * mount and is what React's set-state-in-effect rule flags.
  */
 export default function AnnouncementBar({ text }: Props) {
-  const [visible, setVisible] = useState(false);
+  const dismissed = useSyncExternalStore(
+    subscribe,
+    isDismissed,
+    isDismissedOnServer,
+  );
 
-  useEffect(() => {
-    if (sessionStorage.getItem(STORAGE_KEY) !== "1") setVisible(true);
-  }, []);
+  const onDismiss = useCallback(() => dismiss(), []);
 
-  if (!text || !visible) return null;
+  if (!text || dismissed) return null;
 
   return (
     // Fixed above the mobile header (which is itself fixed at top-0), so the
@@ -37,10 +66,7 @@ export default function AnnouncementBar({ text }: Props) {
       </p>
       <button
         type="button"
-        onClick={() => {
-          sessionStorage.setItem(STORAGE_KEY, "1");
-          setVisible(false);
-        }}
+        onClick={onDismiss}
         aria-label="Dismiss announcement"
         className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-white transition-opacity hover:opacity-70"
       >

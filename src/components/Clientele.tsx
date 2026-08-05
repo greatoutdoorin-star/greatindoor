@@ -1,16 +1,25 @@
+import Image from "next/image";
 import { CLIENTELE } from "@/lib/seed-data";
 
 /**
- * Client roster.
+ * Client roster, as an infinite logo marquee.
  *
- * Rendered as name plates rather than logos — we do not have permission-cleared
- * logo files, and a wordmark set reads cleanly against the warm background. Swap
- * in images here once the brand assets are collected.
+ * The list is rendered twice so the track loops seamlessly — the keyframes
+ * translate by -50%, which lands exactly on the start of the second copy. The
+ * animation lives in globals.css, pauses on hover, and is disabled under
+ * prefers-reduced-motion.
+ *
+ * Logos are supplied as monochrome marks on white, so they need no filter; the
+ * band sits on the tinted surface so the plates read as a set.
  */
 export default function Clientele() {
+  // CLIENTELE.logos is `as const`, so its length is a literal — an emptiness
+  // guard here is dead code and TypeScript rejects the comparison.
+  const logos = CLIENTELE.logos;
+
   return (
-    <section className="bg-surface px-6 py-16 lg:px-14 lg:py-20">
-      <div className="text-center">
+    <section className="bg-surface py-16 lg:py-20">
+      <div className="px-6 text-center lg:px-14">
         <h2 style={{ fontSize: "var(--text-h2)" }}>Our Clientele</h2>
         <p
           className="mt-3 font-body uppercase tracking-[0.14em] text-ink-muted"
@@ -20,20 +29,47 @@ export default function Clientele() {
         </p>
       </div>
 
-      <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3">
-        {CLIENTELE.hospitality.map((name) => (
-          <div
-            key={name}
-            className="flex min-h-[86px] items-center justify-center bg-panel px-4 py-6 text-center"
-          >
-            <span
-              className="font-display font-bold uppercase tracking-[0.1em] text-ink"
-              style={{ fontSize: "var(--text-body-sm)" }}
+      {/*
+        The mask fades the track into the background at both ends, so logos
+        enter and leave instead of being chopped off at a hard edge.
+      */}
+      <div
+        className="logo-marquee mt-12 overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+        }}
+      >
+        <div className="logo-marquee-track flex w-max">
+          {[0, 1].map((copy) => (
+            <div
+              key={copy}
+              className="flex shrink-0 items-center"
+              // The second copy exists only to make the loop seamless; it is
+              // the same content, so it is hidden from assistive tech.
+              aria-hidden={copy === 1}
             >
-              {name}
-            </span>
-          </div>
-        ))}
+              {logos.map((logo) => (
+                <div
+                  key={`${copy}-${logo.src}`}
+                  className="mx-3 flex h-24 w-44 shrink-0 items-center justify-center bg-panel px-6"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={copy === 0 ? logo.name : ""}
+                    width={140}
+                    height={64}
+                    // contain: the marks vary in aspect, and cropping a logo is
+                    // worse than leaving space around it.
+                    className="h-auto max-h-14 w-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

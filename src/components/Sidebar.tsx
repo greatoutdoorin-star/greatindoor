@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { NAV_GROUPS, SECONDARY_NAV, SISTER_BRAND, SITE } from "@/lib/site";
+import { NAV_ITEMS, SECONDARY_NAV, SISTER_BRAND, SITE } from "@/lib/site";
 
 export type NavCollection = { name: string; slug: string };
 
@@ -14,14 +14,23 @@ type SidebarProps = {
   hasAnnouncement?: boolean;
 };
 
-/** Two-line serif wordmark: "great" in accent, "indoors" in ink. */
-function Wordmark() {
+/**
+ * Two-line wordmark: "great" in accent, "indoors" in ink.
+ *
+ * Smaller on mobile — at the desktop 26px it crowds the sister-brand pill and
+ * the menu button in a 64px-tall bar.
+ */
+function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <Link href="/" aria-label={SITE.name} className="block leading-[0.95]">
-      <span className="block font-display text-[26px] font-bold text-accent">
+    <Link
+      href="/"
+      aria-label={SITE.name}
+      className={`block leading-[0.95] ${className}`}
+    >
+      <span className="block font-display text-[19px] font-bold text-accent lg:text-[26px]">
         great
       </span>
-      <span className="block font-display text-[26px] font-bold text-ink">
+      <span className="block font-display text-[19px] font-bold text-ink lg:text-[26px]">
         indoors
       </span>
     </Link>
@@ -35,10 +44,11 @@ export default function Sidebar({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Close the drawer on navigation — otherwise it stays open over the new page.
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // Closing on navigation is done from the links themselves (onClick below)
+  // rather than an effect keyed on pathname: setState in an effect body
+  // triggers a second render pass for every route change, and React's
+  // set-state-in-effect lint rule rejects it.
+  const close = () => setOpen(false);
 
   // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
@@ -48,69 +58,83 @@ export default function Sidebar({
     };
   }, [open]);
 
+  // Escape closes the drawer — expected of anything that covers the viewport.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   const known = new Set(collections.map((c) => c.slug));
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
+  /*
+    Cross-sell to the sister brand. Great Outdoor is a separate site and
+    codebase — this outbound link is the only connection, and it is
+    intentional: the live site promotes it from the rail.
+
+    Rendered directly beneath the wordmark rather than after the category
+    groups, so it is visible without scrolling the rail — and matching where
+    greatoutdoor.in puts its own link back to this site.
+
+    Outlined pill rather than a solid block, matching that same treatment.
+  */
+  const sisterBrandLink = (
+    <a
+      href={SISTER_BRAND.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={close}
+      className="inline-flex w-fit items-center gap-1.5 rounded-full border border-hairline px-3 py-1.5 font-display font-semibold leading-none text-ink transition-colors hover:border-accent hover:text-accent"
+      style={{ fontSize: "var(--text-body-sm)" }}
+    >
+      🌿 {SISTER_BRAND.label} →
+    </a>
+  );
+
   const nav = (
     <nav className="site-nav flex flex-col">
-      {NAV_GROUPS.map((group) => {
-        const items = group.items.filter((i) => known.has(i.slug));
-        if (items.length === 0) return null;
-
-        return (
-          <div key={group.label} className="mb-7">
-            <p
-              className="mb-3 font-body font-medium uppercase tracking-[0.14em] text-ink-muted"
-              style={{ fontSize: "11px" }}
-            >
-              {group.label}
-            </p>
-            <ul className="flex flex-col gap-[14px]">
-              {items.map((item) => {
-                const href = `/collections/${item.slug}`;
-                return (
-                  <li key={item.slug}>
-                    <Link
-                      href={href}
-                      style={{ fontSize: "var(--text-nav-primary)" }}
-                      className={`flex items-center gap-2 font-body transition-colors ${
-                        isActive(href)
-                          ? "font-semibold text-accent"
-                          : "text-ink hover:text-accent"
-                      }`}
-                    >
-                      <span aria-hidden="true">{item.icon}</span>
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        );
-      })}
-
-      {/*
-        Cross-sell to the sister brand. Great Outdoor is a separate site and
-        codebase — this outbound link is the only connection, and it is
-        intentional: the live site promotes it from the rail.
-      */}
-      <a
-        href={SISTER_BRAND.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mb-7 block bg-accent px-4 py-3 text-center font-body font-medium text-white transition-colors hover:bg-accent-hover"
-        style={{ fontSize: "var(--text-body-sm)" }}
-      >
-        🌿 {SISTER_BRAND.label} →
-      </a>
+      {/* One flat list, no group headings — see NAV_ITEMS. "all" is always
+          present, so it is not filtered against the collection slugs. */}
+      <ul className="mb-8 flex flex-col gap-[14px]">
+        {NAV_ITEMS.filter(
+          (item) => item.slug === "all" || known.has(item.slug),
+        ).map((item) => {
+          const href = `/collections/${item.slug}`;
+          return (
+            <li key={item.slug}>
+              <Link
+                href={href}
+                onClick={close}
+                style={{ fontSize: "var(--text-nav-primary)" }}
+                className={`flex items-center gap-2.5 font-body transition-colors ${
+                  isActive(href)
+                    ? "font-semibold text-accent"
+                    : "text-ink hover:text-accent"
+                }`}
+              >
+                {/* Fixed width so the labels align into a column rather than
+                    stepping in and out with each icon's glyph width. */}
+                <span aria-hidden="true" className="w-5 shrink-0">
+                  {item.icon}
+                </span>
+                {item.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
 
       <ul className="flex flex-col gap-[14px] border-t border-hairline pt-6">
         {SECONDARY_NAV.map((item) => (
           <li key={item.href}>
             <Link
               href={item.href}
+              onClick={close}
               style={{ fontSize: "var(--text-nav-secondary)" }}
               className={`font-body transition-colors ${
                 isActive(item.href)
@@ -134,18 +158,38 @@ export default function Sidebar({
         value: Tailwind v4 emits no class for top-[var(--announcement-h)],
         which leaves the header with no offset at all.
       */}
+      {/*
+        Three equal columns rather than a flex row, so the wordmark is centred
+        against the viewport instead of against whatever the side items happen
+        to measure — the sister-brand pill and the menu button are different
+        widths. Matches the sister site's own mobile header.
+      */}
       <header
-        className={`site-header fixed inset-x-0 top-0 z-40 flex h-16 items-center justify-between border-b border-hairline bg-panel px-5 lg:hidden ${
+        className={`site-header fixed inset-x-0 top-0 z-40 grid h-16 grid-cols-[1fr_auto_1fr] items-center border-b border-hairline bg-panel px-4 lg:hidden ${
           hasAnnouncement ? "site-header--offset" : ""
         }`}
       >
-        <Wordmark />
+        <a
+          href={SISTER_BRAND.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="justify-self-start whitespace-nowrap rounded-full border border-hairline px-2.5 py-1 font-display font-semibold leading-none text-ink transition-colors hover:border-accent hover:text-accent"
+          style={{ fontSize: "10px" }}
+        >
+          {SISTER_BRAND.name} ↗
+        </a>
+
+        {/* text-center rather than justify-self-center: the wordmark is a
+            two-line block, so centring the box still left the shorter first
+            line ragged against the longer second one. */}
+        <Wordmark className="text-center" />
+
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
-          className="-mr-2 p-2"
+          className="-mr-2 justify-self-end p-2"
         >
           <span className="relative block h-4 w-6">
             <span
@@ -183,14 +227,18 @@ export default function Sidebar({
             : "pointer-events-none invisible opacity-0"
         }`}
       >
+        {/* The drawer hides the header's wordmark behind it, so the link sits
+            at the top of the drawer content instead. */}
+        <div className="mb-7">{sisterBrandLink}</div>
         {nav}
       </div>
 
-      {/* Desktop fixed rail — 230px, measured from the live site. */}
+      {/* Desktop fixed rail — width from --sidebar-w, matching the sister site. */}
       <aside className="site-sidebar no-scrollbar fixed inset-y-0 left-0 z-40 hidden flex-col overflow-y-auto border-r border-hairline bg-panel py-7 lg:flex">
-        <div className="mb-10">
+        <div className="mb-5">
           <Wordmark />
         </div>
+        <div className="mb-9">{sisterBrandLink}</div>
         {nav}
       </aside>
     </>
