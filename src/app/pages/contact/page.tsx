@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import { getCollections } from "@/lib/catalog";
+import { getVisibleCollections } from "@/lib/catalog";
 import ContactForm from "@/components/ContactForm";
 import { CONTACT, SITE } from "@/lib/site";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const collections = await getCollections();
+  const collections = await getVisibleCollections();
 
   return (
     <SiteShell collections={collections}>

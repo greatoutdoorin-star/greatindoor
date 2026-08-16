@@ -23,7 +23,7 @@ export const WHATSAPP_NUMBER = "919829012090";
 export const WHATSAPP_DISPLAY = "+91 98290 12090";
 
 export const CONTACT = {
-  email: "greatindoor.in@gmail.com",
+  email: "Tarunroyal@yahoo.co.in",
   phone: "+91 98290 12090",
   address: "272A Frontier Colony, Adarsh Nagar, Jaipur, Rajasthan 302004",
 } as const;
@@ -74,14 +74,24 @@ export const NAV_ITEMS = [
   { label: "Cafe Furniture", slug: "cafe-furniture", icon: "☕" },
   { label: "Sofa", slug: "sofa", icon: "🛋️" },
   { label: "Blinds", slug: "blinds", icon: "🪟" },
-  { label: "Deck Flooring", slug: "deck-flooring", icon: "🪵" },
   { label: "Wall-to-Wall Carpets", slug: "wall-to-wall-carpets", icon: "🧶" },
-  { label: "Wall Cladding", slug: "wall-cladding", icon: "🎨" },
-  { label: "Planters", slug: "planters", icon: "🪴" },
   { label: "Awnings & Umbrellas", slug: "awnings-umbrellas", icon: "⛱️" },
-  { label: "Tensile Structures", slug: "tensile-structures", icon: "🏗️" },
-  { label: "Luxury Tents", slug: "luxury-tents", icon: "⛺" },
   { label: "Artificial Grass", slug: "artificial-grass", icon: "🍃" },
+] as const;
+
+/**
+ * Categories hidden from the rail and the home grid.
+ *
+ * Their collection and product pages still resolve — the products exist and
+ * are linked from "All Products" — so nothing 404s and no inbound link breaks.
+ * This only removes them from browsing surfaces.
+ */
+export const HIDDEN_COLLECTIONS: readonly string[] = [
+  "deck-flooring",
+  "planters",
+  "wall-cladding",
+  "tensile-structures",
+  "luxury-tents",
 ] as const;
 
 /**

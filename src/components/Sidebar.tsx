@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,24 +16,24 @@ type SidebarProps = {
 };
 
 /**
- * Two-line wordmark: "great" in accent, "indoors" in ink.
+ * The brand wordmark.
  *
- * Smaller on mobile — at the desktop 26px it crowds the sister-brand pill and
- * the menu button in a 64px-tall bar.
+ * The supplied artwork is a single-line serif lockup at 863x163 (~5.3:1), so
+ * it is sized by height and left to find its own width — a fixed width would
+ * distort it. Smaller on mobile, where it shares a 64px bar with the
+ * sister-brand pill and the menu button.
  */
 function Wordmark({ className = "" }: { className?: string }) {
   return (
-    <Link
-      href="/"
-      aria-label={SITE.name}
-      className={`block leading-[0.95] ${className}`}
-    >
-      <span className="block font-display text-[19px] font-bold text-accent lg:text-[26px]">
-        great
-      </span>
-      <span className="block font-display text-[19px] font-bold text-ink lg:text-[26px]">
-        indoors
-      </span>
+    <Link href="/" aria-label={SITE.name} className={`block ${className}`}>
+      <Image
+        src="/catalog/brand/logo.png"
+        alt={SITE.name}
+        width={863}
+        height={163}
+        priority
+        className="h-6 w-auto lg:h-8"
+      />
     </Link>
   );
 }
@@ -165,7 +166,7 @@ export default function Sidebar({
         widths. Matches the sister site's own mobile header.
       */}
       <header
-        className={`site-header fixed inset-x-0 top-0 z-40 grid h-16 grid-cols-[1fr_auto_1fr] items-center border-b border-hairline bg-panel px-4 lg:hidden ${
+        className={`site-header fixed inset-x-0 top-0 z-40 grid h-16 grid-cols-[auto_1fr_auto] items-center gap-2 border-b border-hairline bg-panel px-3 lg:hidden ${
           hasAnnouncement ? "site-header--offset" : ""
         }`}
       >
@@ -173,8 +174,8 @@ export default function Sidebar({
           href={SISTER_BRAND.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="justify-self-start whitespace-nowrap rounded-full border border-hairline px-3.5 py-2 font-display font-semibold leading-none text-ink transition-colors hover:border-accent hover:text-accent"
-          style={{ fontSize: "12px" }}
+          className="justify-self-start whitespace-nowrap rounded-full border border-hairline px-2.5 py-1.5 font-display font-semibold leading-none text-ink transition-colors hover:border-accent hover:text-accent"
+          style={{ fontSize: "11px" }}
         >
           {SISTER_BRAND.name} ↗
         </a>

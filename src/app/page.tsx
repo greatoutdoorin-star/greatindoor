@@ -8,7 +8,7 @@ import ProductCard from "@/components/ProductCard";
 import SisterBrand from "@/components/SisterBrand";
 import SiteShell from "@/components/SiteShell";
 import StylistPromo from "@/components/StylistPromo";
-import { getAllProducts, getCollections, getSettings } from "@/lib/catalog";
+import { getAllProducts, getVisibleCollections, getSettings } from "@/lib/catalog";
 
 /**
  * How many products the featured row shows. Capped so "View all" leads
@@ -24,7 +24,7 @@ const FEATURED_MOBILE_LIMIT = 6;
 export default async function Home() {
   const [products, collections, settings] = await Promise.all([
     getAllProducts(),
-    getCollections(),
+    getVisibleCollections(),
     getSettings(),
   ]);
 

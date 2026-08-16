@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SiteShell from "@/components/SiteShell";
-import { getCollections } from "@/lib/catalog";
+import { getVisibleCollections } from "@/lib/catalog";
 import { generalEnquiryLink } from "@/lib/whatsapp";
 
 /**
@@ -11,7 +11,7 @@ import { generalEnquiryLink } from "@/lib/whatsapp";
  * and the WhatsApp action instead of a dead end.
  */
 export default async function NotFound() {
-  const collections = await getCollections();
+  const collections = await getVisibleCollections();
 
   return (
     <SiteShell

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PolicyPage from "@/components/PolicyPage";
+import { CONTACT } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -123,8 +124,9 @@ export default function PrivacyPolicyPage() {
       <p>
         For questions, concerns, or data-related requests, please reach out to
         us at{" "}
-        <a href="mailto:greatindoor.in@gmail.com">greatindoor.in@gmail.com</a>
-        .
+        {/* Read from CONTACT rather than hardcoded — this address had already
+            drifted out of step with site.ts once. */}
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
       </p>
     </PolicyPage>
   );

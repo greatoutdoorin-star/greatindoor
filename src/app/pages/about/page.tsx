@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import { getCollections } from "@/lib/catalog";
+import { getVisibleCollections } from "@/lib/catalog";
 import { FOUNDER, SERVICES, VALUES } from "@/lib/seed-data";
 import { SITE, STATS } from "@/lib/site";
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const collections = await getCollections();
+  const collections = await getVisibleCollections();
 
   return (
     <SiteShell collections={collections}>

@@ -11,11 +11,7 @@ const COMPANY_LINKS = [
 ];
 
 /** Slugs mirror the existing site's URLs so inbound links keep working. */
-const QUICK_LINKS = [
-  { label: "Privacy Policy", href: "/pages/privacy-policy" },
-  { label: "Shipping Policy", href: "/pages/shipping" },
-  { label: "Returns & Refund", href: "/pages/returns" },
-];
+const QUICK_LINKS = [{ label: "Privacy Policy", href: "/pages/privacy-policy" }];
 
 export default function Footer() {
   return (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import { getCollections } from "@/lib/catalog";
+import { getVisibleCollections } from "@/lib/catalog";
 import B2bEnquiryForm from "@/components/B2bEnquiryForm";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ const OFFERINGS = [
 ];
 
 export default async function B2bPage() {
-  const collections = await getCollections();
+  const collections = await getVisibleCollections();
 
   return (
     <SiteShell collections={collections}>

@@ -142,14 +142,6 @@ export const COLLECTIONS: SeedCollection[] = [
     blurb: "Landscape and sports turf with UV-stable fibres.",
   },
   {
-    slug: "sports-flooring",
-    name: "Sports Flooring",
-    group: "Outdoor",
-    icon: "🏃",
-    image: "",
-    blurb: "Court, gym and multipurpose surfaces with certified bounce.",
-  },
-  {
     slug: "wall-tiles",
     name: "Wall Tiles",
     group: "Interiors",

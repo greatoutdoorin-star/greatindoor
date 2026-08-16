@@ -6,11 +6,15 @@ import {
   getCollection,
   getCollections,
   getProductsByCollection,
+  getVisibleCollections,
 } from "@/lib/catalog";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
+  // Unfiltered on purpose: hidden categories are dropped from the nav, not
+  // deleted, so their pages must still be generated or every link to them
+  // (and every inbound link) 404s.
   const collections = await getCollections();
   return [{ slug: "all" }, ...collections.map((c) => ({ slug: c.slug }))];
 }
@@ -32,7 +36,7 @@ export default async function CollectionPage({ params }: Props) {
 
   const [products, navCollections] = await Promise.all([
     getProductsByCollection(slug),
-    getCollections(),
+    getVisibleCollections(),
   ]);
 
   return (

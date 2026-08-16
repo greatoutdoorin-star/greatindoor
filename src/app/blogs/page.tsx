@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteShell from "@/components/SiteShell";
-import { getCollections, getPosts } from "@/lib/catalog";
+import { getVisibleCollections, getPosts } from "@/lib/catalog";
 
 export const metadata: Metadata = {
   title: "Blogs",
@@ -21,7 +21,7 @@ function formatDate(iso: string | null) {
 
 export default async function BlogsPage() {
   const [collections, posts] = await Promise.all([
-    getCollections(),
+    getVisibleCollections(),
     getPosts(),
   ]);
 

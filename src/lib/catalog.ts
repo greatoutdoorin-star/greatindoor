@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { COLLECTIONS, PRODUCTS } from "./seed-data";
+import { HIDDEN_COLLECTIONS } from "./site";
 
 /**
  * Data access layer.
@@ -93,6 +94,19 @@ export const getCollections = cache(async (): Promise<Collection[]> => {
     ...c,
     count: products.filter((p) => p.collection === c.slug).length,
   }));
+});
+
+/**
+ * Collections shown in browsing UI — the rail, the home grid, the ticker.
+ *
+ * Deliberately separate from `getCollections()`, which still returns every
+ * collection: that one feeds `generateStaticParams` and the sitemap, so
+ * filtering it would stop building the hidden pages and 404 any inbound link
+ * to them. Hidden categories stay reachable, just not advertised.
+ */
+export const getVisibleCollections = cache(async (): Promise<Collection[]> => {
+  const collections = await getCollections();
+  return collections.filter((c) => !HIDDEN_COLLECTIONS.includes(c.slug));
 });
 
 export async function getProductsByCollection(

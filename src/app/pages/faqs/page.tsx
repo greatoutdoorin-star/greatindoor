@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import FaqAccordion from "@/components/FaqAccordion";
 import SiteShell from "@/components/SiteShell";
-import { getCollections } from "@/lib/catalog";
+import { getVisibleCollections } from "@/lib/catalog";
 import { FAQ_GROUPS } from "@/lib/faqs";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function FaqsPage() {
-  const collections = await getCollections();
+  const collections = await getVisibleCollections();
 
   return (
     <SiteShell collections={collections}>

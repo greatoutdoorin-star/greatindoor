@@ -10,7 +10,7 @@ import SpecsAccordion from "@/components/SpecsAccordion";
 import {
   getAllProducts,
   getCollection,
-  getCollections,
+  getVisibleCollections,
   getProduct,
   getRelatedProducts,
 } from "@/lib/catalog";
@@ -45,7 +45,7 @@ export default async function ProductPage({ params }: Props) {
   if (!product) notFound();
 
   const [navCollections, collection, related] = await Promise.all([
-    getCollections(),
+    getVisibleCollections(),
     getCollection(product.collection),
     getRelatedProducts(product),
   ]);

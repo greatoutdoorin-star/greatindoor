@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SiteShell from "@/components/SiteShell";
-import { getCollections, getPost, getPosts } from "@/lib/catalog";
+import { getVisibleCollections, getPost, getPosts } from "@/lib/catalog";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const [post, collections] = await Promise.all([
     getPost(slug),
-    getCollections(),
+    getVisibleCollections(),
   ]);
 
   if (!post) notFound();
