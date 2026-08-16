@@ -17,12 +17,12 @@ import { STATS } from "@/lib/site";
  */
 const SLIDES = [
   {
-    src: "/catalog/banners/hero-slide-1.png",
-    alt: "New collection — red, blue and yellow cafe chairs",
-  },
-  {
     src: "/catalog/banners/hero-slide-2.png",
     alt: "Executive leather chair and lounge armchair in a styled interior",
+  },
+  {
+    src: "/catalog/banners/hero-slide-1.png",
+    alt: "New collection — red, blue and yellow cafe chairs",
   },
   {
     src: "/catalog/banners/hero-slide-3.png",
