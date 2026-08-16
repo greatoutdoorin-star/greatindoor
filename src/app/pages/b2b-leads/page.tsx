@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import B2bEnquiryForm from "@/components/B2bEnquiryForm";
+import ClientLogoMarquee from "@/components/ClientLogoMarquee";
 import SiteShell from "@/components/SiteShell";
 import { getVisibleCollections } from "@/lib/catalog";
-import B2bEnquiryForm from "@/components/B2bEnquiryForm";
 
 export const metadata: Metadata = {
   title: "Bulk | B2B",
@@ -63,14 +64,25 @@ export default async function B2bPage() {
         <B2bEnquiryForm />
       </section>
 
-      <section className="px-6 py-16 lg:px-14 lg:py-20">
-        <h2 style={{ fontSize: "var(--text-h0)" }}>Our Esteemed Clientele</h2>
-        <p className="mt-6 max-w-4xl font-body leading-relaxed">
-          A distinguished roster of clients who trust us for exceptional
-          craftsmanship, considered design and complete fit-outs — from
-          furniture and flooring through to window treatments and shade
-          structures.
-        </p>
+      {/* The logos are the argument this section is making — a B2B visitor is
+          weighing whether we supply properties like theirs, and the roster
+          answers that faster than the copy does. */}
+      <section className="py-16 lg:py-20">
+        <div className="px-6 lg:px-14">
+          <h2 style={{ fontSize: "var(--text-h0)" }}>Our Esteemed Clientele</h2>
+          <p className="mt-6 max-w-4xl font-body leading-relaxed">
+            A distinguished roster of clients who trust us for exceptional
+            craftsmanship, considered design and complete fit-outs — from
+            furniture and flooring through to window treatments and shade
+            structures.
+          </p>
+        </div>
+
+        <div className="mt-12">
+          {/* Bordered plates: this section sits on the white canvas, so a
+              white plate would have no edge at all. */}
+          <ClientLogoMarquee plateClass="border border-hairline bg-panel" />
+        </div>
       </section>
     </SiteShell>
   );
