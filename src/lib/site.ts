@@ -76,7 +76,8 @@ export const NAV_ITEMS = [
   { label: "Wooden Flooring", slug: "wooden-flooring", icon: "🪵" },
   { label: "Blinds", slug: "blinds", icon: "🪟" },
   { label: "Wall-to-Wall Carpets", slug: "wall-to-wall-carpets", icon: "🧶" },
-  { label: "Awnings & Umbrellas", slug: "awnings-umbrellas", icon: "⛱️" },
+  { label: "Awnings", slug: "awnings", icon: "🏠" },
+  { label: "Umbrellas", slug: "umbrellas", icon: "⛱️" },
   { label: "Artificial Grass", slug: "artificial-grass", icon: "🍃" },
 ] as const;
 

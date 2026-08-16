@@ -119,12 +119,20 @@ export const COLLECTIONS: SeedCollection[] = [
     blurb: "Fibreglass and ceramic planters in every size and finish.",
   },
   {
-    slug: "awnings-umbrellas",
-    name: "Awnings & Umbrellas",
+    slug: "awnings",
+    name: "Awnings",
+    group: "Outdoor",
+    icon: "🏠",
+    image: "/catalog/products/striped-patio-awning.jpg",
+    blurb: "Fixed and retractable fabric awnings for windows, shopfronts and patios.",
+  },
+  {
+    slug: "umbrellas",
+    name: "Umbrellas",
     group: "Outdoor",
     icon: "⛱️",
     image: "/catalog/products/resort-umbrella.jpg",
-    blurb: "Retractable awnings and cantilever umbrellas for shade.",
+    blurb: "Centre-pole, cantilever and large-format resort shade umbrellas.",
   },
   {
     slug: "tensile-structures",
@@ -742,11 +750,11 @@ export const GI_PRODUCTS: SeedProduct[] = [
     images: ["/catalog/products/media-wall-cladding.jpg"],
   },
 
-  // ── Awnings & umbrellas ───────────────────────────────────────────────────
+  // ── Awnings ───────────────────────────────────────────────────────────────
   {
     slug: "striped-window-awning",
     name: "Striped Window Awning",
-    collection: "awnings-umbrellas",
+    collection: "awnings",
     badge: "Outdoor",
     description:
       "A striped fabric awning over a window, fixed or retractable, in a choice of fabrics and profiles.",
@@ -762,7 +770,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
   {
     slug: "striped-patio-awning",
     name: "Striped Patio Awning",
-    collection: "awnings-umbrellas",
+    collection: "awnings",
     badge: "Outdoor",
     description:
       "A wider patio awning in striped fabric, spanning a seating area with a retractable arm mechanism.",
@@ -775,10 +783,11 @@ export const GI_PRODUCTS: SeedProduct[] = [
     ],
     images: ["/catalog/products/striped-patio-awning.jpg"],
   },
+  // ── Umbrellas ─────────────────────────────────────────────────────────────
   {
     slug: "poolside-umbrella",
     name: "Poolside Umbrella",
-    collection: "awnings-umbrellas",
+    collection: "umbrellas",
     badge: "Outdoor",
     description:
       "A centre-pole shade umbrella for hotel poolsides and open-air restaurants, with a weighted or anchored base.",
@@ -794,7 +803,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
   {
     slug: "cantilever-umbrella-white",
     name: "Cantilever Umbrella",
-    collection: "awnings-umbrellas",
+    collection: "umbrellas",
     badge: "Outdoor",
     description:
       "A side-post cantilever umbrella that keeps the area beneath it clear — the shade sits where the pole does not.",
@@ -809,7 +818,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
   {
     slug: "cantilever-umbrella-yellow",
     name: "Cantilever Umbrella (Colour)",
-    collection: "awnings-umbrellas",
+    collection: "umbrellas",
     badge: "Outdoor",
     description:
       "The cantilever umbrella in a coloured canopy — specify the shade to match your property's palette.",
@@ -824,7 +833,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
   {
     slug: "resort-umbrella",
     name: "Resort Umbrella",
-    collection: "awnings-umbrellas",
+    collection: "umbrellas",
     badge: "Outdoor",
     description:
       "Large-format resort umbrellas supplied in matching runs, for pool decks and beach fronts.",
