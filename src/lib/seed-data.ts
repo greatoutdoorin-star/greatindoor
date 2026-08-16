@@ -199,7 +199,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
       { label: "Mechanism", value: "Tilt with height adjustment" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/products/executive-leather-chair.jpg"],
+    images: ["/catalog/office/executive-leather-chair.jpg"],
   },
   {
     slug: "high-back-office-chair",
@@ -215,7 +215,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
       { label: "Mechanism", value: "Tilt with height adjustment" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/products/high-back-office-chair.jpg"],
+    images: ["/catalog/office/high-back-office-chair.jpg"],
   },
   {
     slug: "cushioned-executive-chair",
@@ -230,7 +230,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
       { label: "Arms", value: "Padded, fixed" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/products/cushioned-executive-chair.jpg"],
+    images: ["/catalog/office/cushioned-executive-chair.jpg"],
   },
   {
     slug: "modern-office-chair",
@@ -245,7 +245,7 @@ export const GI_PRODUCTS: SeedProduct[] = [
       { label: "Base", value: "Five-star with castors" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/products/modern-office-chair.jpg"],
+    images: ["/catalog/office/modern-office-chair.jpg"],
   },
 
   // ── Cafe furniture (GI's own photography) ─────────────────────────────────
@@ -1821,7 +1821,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-altis-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-altis-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-altis-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-altis.webp", "/catalog/zeta/zeta-seatings-altis-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-altis-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-altis-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-aqua",
@@ -1837,7 +1837,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-aqua-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-aqua-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-aqua-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-aqua.webp", "/catalog/zeta/zeta-seatings-aqua-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-aqua-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-aqua-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-atlantis",
@@ -1853,7 +1853,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-atlantis-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-atlantis-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-atlantis-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-atlantis.webp", "/catalog/zeta/zeta-seatings-atlantis-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-atlantis-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-atlantis-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-axis",
@@ -1869,7 +1869,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-axis-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-axis.webp", "/catalog/zeta/zeta-seatings-axis-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-axis-pro",
@@ -1885,7 +1885,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-axis-pro-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-pro-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-pro-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-axis-pro.webp", "/catalog/zeta/zeta-seatings-axis-pro-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-pro-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-axis-pro-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-capitol",
@@ -1901,7 +1901,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-capitol-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-capitol-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-capitol-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-capitol-04-detail-lifestyle-office-chair.webp"],
+    images: ["/catalog/office/zeta-capitol.webp", "/catalog/zeta/zeta-seatings-capitol-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-capitol-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-capitol-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-capitol-04-detail-lifestyle-office-chair.webp"],
   },
   {
     slug: "zeta-curvy",
@@ -1917,7 +1917,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-curvy-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-04-main-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-05-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-06-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-curvy.webp", "/catalog/zeta/zeta-seatings-curvy-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-04-main-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-05-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-curvy-06-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-duster",
@@ -1933,7 +1933,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-duster-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-duster-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-duster-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-duster.webp", "/catalog/zeta/zeta-seatings-duster-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-duster-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-duster-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-dynamo",
@@ -1949,7 +1949,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-dynamo-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-dynamo-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-dynamo-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-dynamo.webp", "/catalog/zeta/zeta-seatings-dynamo-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-dynamo-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-dynamo-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-everest",
@@ -1965,7 +1965,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-everest-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-everest-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-everest-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-everest.webp", "/catalog/zeta/zeta-seatings-everest-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-everest-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-everest-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-jaguar",
@@ -1981,7 +1981,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-jaguar-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-jaguar-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-jaguar-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-jaguar-04-recliner-lifestyle-office-chair.webp"],
+    images: ["/catalog/office/zeta-jaguar.webp", "/catalog/zeta/zeta-seatings-jaguar-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-jaguar-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-jaguar-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-jaguar-04-recliner-lifestyle-office-chair.webp"],
   },
   {
     slug: "zeta-magnet",
@@ -1997,7 +1997,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-magnet-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-magnet-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-magnet-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-magnet-04-upholstery-detail-office-chair.webp"],
+    images: ["/catalog/office/zeta-magnet.webp", "/catalog/zeta/zeta-seatings-magnet-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-magnet-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-magnet-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-magnet-04-upholstery-detail-office-chair.webp"],
   },
   {
     slug: "zeta-mastra",
@@ -2013,7 +2013,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-mastra-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-mastra-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-mastra-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-mastra-04-upholstery-detail-office-chair.webp"],
+    images: ["/catalog/office/zeta-mastra.webp", "/catalog/zeta/zeta-seatings-mastra-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-mastra-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-mastra-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-mastra-04-upholstery-detail-office-chair.webp"],
   },
   {
     slug: "zeta-mist",
@@ -2029,7 +2029,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-mist-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-mist-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-mist-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-mist.webp", "/catalog/zeta/zeta-seatings-mist-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-mist-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-mist-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-muse",
@@ -2045,7 +2045,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-muse-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-muse-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-muse-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-muse.webp", "/catalog/zeta/zeta-seatings-muse-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-muse-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-muse-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-nest",
@@ -2061,7 +2061,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-nest-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-nest-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-nest-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-nest.webp", "/catalog/zeta/zeta-seatings-nest-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-nest-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-nest-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-orion",
@@ -2077,7 +2077,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-orion-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-orion-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-orion-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-orion.webp", "/catalog/zeta/zeta-seatings-orion-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-orion-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-orion-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-rover",
@@ -2093,7 +2093,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-rover-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-rover-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-rover-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-rover.webp", "/catalog/zeta/zeta-seatings-rover-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-rover-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-rover-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-sitara",
@@ -2109,7 +2109,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-sitara-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-sitara-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-sitara-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-sitara-04-lifestyle-office-chair.webp"],
+    images: ["/catalog/office/zeta-sitara.webp", "/catalog/zeta/zeta-seatings-sitara-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-sitara-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-sitara-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-sitara-04-lifestyle-office-chair.webp"],
   },
   {
     slug: "zeta-spider",
@@ -2125,7 +2125,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-spider-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-spider-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-spider-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-spider.webp", "/catalog/zeta/zeta-seatings-spider-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-spider-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-spider-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-sway",
@@ -2141,7 +2141,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-sway-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-sway-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-sway-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-sway.webp", "/catalog/zeta/zeta-seatings-sway-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-sway-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-sway-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-synergy",
@@ -2157,7 +2157,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-synergy-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-synergy-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-synergy-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-synergy.webp", "/catalog/zeta/zeta-seatings-synergy-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-synergy-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-synergy-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-tang",
@@ -2173,7 +2173,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-tang-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-tang-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-tang-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-tang.webp", "/catalog/zeta/zeta-seatings-tang-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-tang-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-tang-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-the-wood",
@@ -2189,7 +2189,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-the-wood-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-the-wood-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-the-wood-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-the-wood-04-lifestyle-office-chair.webp"],
+    images: ["/catalog/office/zeta-the-wood.webp", "/catalog/zeta/zeta-seatings-the-wood-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-the-wood-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-the-wood-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-the-wood-04-lifestyle-office-chair.webp"],
   },
   {
     slug: "zeta-triumph",
@@ -2205,7 +2205,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-triumph-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-triumph-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-triumph-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-triumph.webp", "/catalog/zeta/zeta-seatings-triumph-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-triumph-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-triumph-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-venus",
@@ -2221,7 +2221,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-venus-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-venus-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-venus-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-venus.webp", "/catalog/zeta/zeta-seatings-venus-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-venus-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-venus-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-vista",
@@ -2237,7 +2237,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-vista-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-vista-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-vista-03-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-vista.webp", "/catalog/zeta/zeta-seatings-vista-01-main-office-chair.webp", "/catalog/zeta/zeta-seatings-vista-02-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-vista-03-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-zenith",
@@ -2253,7 +2253,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-zenith-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-zenith-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-zenith-02-view-02-office-chair.webp"],
+    images: ["/catalog/office/zeta-zenith.webp", "/catalog/zeta/zeta-seatings-zenith-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-zenith-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-zenith-02-view-02-office-chair.webp"],
   },
   {
     slug: "zeta-zentra",
@@ -2269,7 +2269,7 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
       { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
       ...MADE_TO_ORDER,
     ],
-    images: ["/catalog/zeta/zeta-seatings-zentra-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-zentra-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-zentra-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-zentra-04-lifestyle-office-chair.webp"],
+    images: ["/catalog/office/zeta-zentra.webp", "/catalog/zeta/zeta-seatings-zentra-03-main-office-chair.webp", "/catalog/zeta/zeta-seatings-zentra-01-view-01-office-chair.webp", "/catalog/zeta/zeta-seatings-zentra-02-view-02-office-chair.webp", "/catalog/zeta/zeta-seatings-zentra-04-lifestyle-office-chair.webp"],
   },
 ];
 
