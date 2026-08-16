@@ -74,7 +74,7 @@ export const COLLECTIONS: SeedCollection[] = [
     name: "Blinds",
     group: "Interiors",
     icon: "🪟",
-    image: "/catalog/scenes/blinds-roller-cropped.jpg",
+    image: "/catalog/blinds/venetian-blinds.jpg",
     blurb: "Roller, roman, vertical and motorised window treatments.",
   },
   {
@@ -2883,8 +2883,272 @@ export const SOFA_PRODUCTS: SeedProduct[] = [
   },
 ];
 
+/**
+ * Window blinds.
+ *
+ * The range and product names come from the supplier's own product page.
+ * That source carries no dimensions or material tables, so the spec rows
+ * here stay at the level the source actually supports — type, operation and
+ * the made-to-measure terms that apply to every blind. Nothing is invented.
+ */
+export const BLINDS_PRODUCTS: SeedProduct[] = [
+  {
+    slug: "blinds-block-out",
+    name: "Block Out",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Room-darkening blackout blinds that shut out daylight almost entirely — the choice for bedrooms, boardrooms and any room with a projector.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Blackout fabric" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/block-out.jpg"],
+  },
+  {
+    slug: "blinds-curtain-track",
+    name: "Curtain Track",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Ceiling- or wall-mounted curtain track systems, cut to the run of the window and finished to draw smoothly under weight.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Track system" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/curtain-track.jpg"],
+  },
+  {
+    slug: "blinds-honeycomb",
+    name: "Honeycomb",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Cellular honeycomb shades whose air pockets insulate the window, softening light while cutting heat gain and loss.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Cellular / honeycomb" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/honeycomb.jpg"],
+  },
+  {
+    slug: "blinds-lohas",
+    name: "Lohas",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Light-filtering shades in a soft weave that diffuses daylight across the room rather than blocking it.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Light filtering" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/lohas.jpg"],
+  },
+  {
+    slug: "blinds-open-roman",
+    name: "Open Roman",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Roman shades that stack into soft horizontal folds as they rise, giving a window the look of a curtain with the control of a blind.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Roman fold" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/open-roman.jpg"],
+  },
+  {
+    slug: "blinds-roller",
+    name: "Roller",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "The classic roller blind — a single flat panel on a smooth-running tube, in blackout, dim-out or sunscreen fabrics.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Roller" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/roller.jpg"],
+  },
+  {
+    slug: "blinds-s-wooden-blind",
+    name: "'S' Wooden Blind",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Wooden slat blinds with an S-profile that closes tighter than a flat slat, for better light control without losing the timber look.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Wooden slat, S-profile" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/s-wooden-blind.jpg"],
+  },
+  {
+    slug: "blinds-slope",
+    name: "Slope",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Blinds shaped for sloped and angled glazing — skylights, gables and stairwell windows that a standard blind cannot fit.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Shaped for angled glazing" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/slope.jpg"],
+  },
+  {
+    slug: "blinds-triple-shade",
+    name: "Triple Shade",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Layered sheer-and-solid banded shades that shift from open view to full privacy as the bands align.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Layered banded shade" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/triple-shade.jpg"],
+  },
+  {
+    slug: "blinds-venetian-blinds",
+    name: "Venetian Blinds",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Horizontal slat blinds that tilt through the full range from open to closed, in aluminium or timber finishes.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Horizontal slat" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/venetian-blinds.jpg"],
+  },
+  {
+    slug: "blinds-vertical-blinds",
+    name: "Vertical Blinds",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Vertical louvre blinds that draw aside and rotate — the practical choice for wide windows and sliding doors.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Vertical louvre" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/vertical-blinds.jpg"],
+  },
+  {
+    slug: "blinds-wooden-blinds",
+    name: "Wooden Blinds",
+    collection: "blinds",
+    badge: "Blinds",
+    description:
+      "Real timber venetian blinds, warm underlight and substantial in the hand, for studies, living rooms and period interiors.",
+    specs: [
+      "Made to measure — every blind is cut to your window",
+      "Manual or motorised operation",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Type", value: "Real timber slat" },
+      { label: "Operation", value: "Manual or motorised" },
+      { label: "Sizing", value: "Made to measure" },
+      { label: "Fabric", value: "Colour and opacity to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/blinds/wooden-blinds.jpg"],
+  },
+];
+
 export const PRODUCTS: SeedProduct[] = [
   ...GI_PRODUCTS,
+  ...BLINDS_PRODUCTS,
   ...FLOORING_PRODUCTS,
   ...SOFA_PRODUCTS,
   ...ZETA_PRODUCTS,
