@@ -73,6 +73,7 @@ export const NAV_ITEMS = [
   { label: "Office Furniture", slug: "office-furniture", icon: "🪑" },
   { label: "Cafe Furniture", slug: "cafe-furniture", icon: "☕" },
   { label: "Sofa", slug: "sofa", icon: "🛋️" },
+  { label: "Wooden Flooring", slug: "wooden-flooring", icon: "🪵" },
   { label: "Blinds", slug: "blinds", icon: "🪟" },
   { label: "Wall-to-Wall Carpets", slug: "wall-to-wall-carpets", icon: "🧶" },
   { label: "Awnings & Umbrellas", slug: "awnings-umbrellas", icon: "⛱️" },

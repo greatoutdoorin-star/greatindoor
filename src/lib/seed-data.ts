@@ -86,6 +86,15 @@ export const COLLECTIONS: SeedCollection[] = [
     blurb: "WPC and hardwood decking for balconies, patios and poolsides.",
   },
   {
+    slug: "wooden-flooring",
+    name: "Wooden Flooring",
+    group: "Interiors",
+    icon: "🪵",
+    image: "/catalog/flooring/atlantis-oak-cocoa.jpg",
+    blurb:
+      "AC4 laminate wooden flooring in oak, walnut, teak and spruce decors.",
+  },
+  {
     slug: "wall-to-wall-carpets",
     name: "Wall-to-Wall Carpets",
     group: "Interiors",
@@ -2273,8 +2282,611 @@ export const ZETA_PRODUCTS: SeedProduct[] = [
   },
 ];
 
+/**
+ * Wooden laminate flooring.
+ *
+ * Three supplier ranges — Atlantis (spillproof), Casablanca (herringbone)
+ * and Vestige (European matte). Specifications are transcribed from each
+ * catalogue's own spec panel; imagery is the catalogue room-sets, which show
+ * the decor laid rather than as a plank swatch.
+ *
+ * Slugs carry the range prefix because decor names repeat across ranges —
+ * Walnut Bliss and Bali Teak each appear in two.
+ */
+export const FLOORING_PRODUCTS: SeedProduct[] = [
+  {
+    slug: "atlantis-oak-cocoa",
+    name: "Atlantis Oak Cocoa",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A deep cocoa-brown oak with pronounced grain, warm enough to anchor a hallway or living room without darkening it.\n\n100-hour spill protection technology — engineered Hydroshield HDF designed to resist accidental liquid spills for extended periods. Spill protection refers to resistance against surface standing liquid and does not replace proper maintenance practice.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Atlantis — Spillproof Wooden Laminate" }, { label: "Core", value: "Hydroshield HDF, density 1000 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1218 mm" }, { label: "Width", value: "197 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "8 planks" }, { label: "Area per Box", value: "20.66 sq.ft. / 1.919 sq.mtr." }, { label: "Surface", value: "Embossed in register" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/atlantis-oak-cocoa.jpg"],
+  },
+  {
+    slug: "atlantis-oak-barley",
+    name: "Atlantis Oak Barley",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A mid-tone barley oak — the everyday neutral of the range, equally at home in a bedroom or an open-plan living space.\n\n100-hour spill protection technology — engineered Hydroshield HDF designed to resist accidental liquid spills for extended periods. Spill protection refers to resistance against surface standing liquid and does not replace proper maintenance practice.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Atlantis — Spillproof Wooden Laminate" }, { label: "Core", value: "Hydroshield HDF, density 1000 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1218 mm" }, { label: "Width", value: "197 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "8 planks" }, { label: "Area per Box", value: "20.66 sq.ft. / 1.919 sq.mtr." }, { label: "Surface", value: "Embossed in register" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/atlantis-oak-barley.jpg"],
+  },
+  {
+    slug: "atlantis-oak-creme",
+    name: "Atlantis Oak Creme",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A pale creme oak that lifts a room, well suited to compact spaces and Scandinavian-leaning interiors.\n\n100-hour spill protection technology — engineered Hydroshield HDF designed to resist accidental liquid spills for extended periods. Spill protection refers to resistance against surface standing liquid and does not replace proper maintenance practice.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Atlantis — Spillproof Wooden Laminate" }, { label: "Core", value: "Hydroshield HDF, density 1000 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1218 mm" }, { label: "Width", value: "197 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "8 planks" }, { label: "Area per Box", value: "20.66 sq.ft. / 1.919 sq.mtr." }, { label: "Surface", value: "Embossed in register" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/atlantis-oak-creme.jpg"],
+  },
+  {
+    slug: "atlantis-oak-grey-scale",
+    name: "Atlantis Oak Grey Scale",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A cool grey-scale oak with soft grain, a contemporary backdrop that sits comfortably under both warm and cool furnishings.\n\n100-hour spill protection technology — engineered Hydroshield HDF designed to resist accidental liquid spills for extended periods. Spill protection refers to resistance against surface standing liquid and does not replace proper maintenance practice.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Atlantis — Spillproof Wooden Laminate" }, { label: "Core", value: "Hydroshield HDF, density 1000 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1218 mm" }, { label: "Width", value: "197 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "8 planks" }, { label: "Area per Box", value: "20.66 sq.ft. / 1.919 sq.mtr." }, { label: "Surface", value: "Embossed in register" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/atlantis-oak-grey-scale.jpg"],
+  },
+  {
+    slug: "atlantis-oak-maize",
+    name: "Atlantis Oak Maize",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A golden maize oak with a natural, sunlit warmth that suits traditional and transitional rooms alike.\n\n100-hour spill protection technology — engineered Hydroshield HDF designed to resist accidental liquid spills for extended periods. Spill protection refers to resistance against surface standing liquid and does not replace proper maintenance practice.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Atlantis — Spillproof Wooden Laminate" }, { label: "Core", value: "Hydroshield HDF, density 1000 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1218 mm" }, { label: "Width", value: "197 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "8 planks" }, { label: "Area per Box", value: "20.66 sq.ft. / 1.919 sq.mtr." }, { label: "Surface", value: "Embossed in register" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/atlantis-oak-maize.jpg"],
+  },
+  {
+    slug: "casablanca-bali-teak",
+    name: "Casablanca Bali Teak",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Golden-brown teak tones in a herringbone lay — the pattern does the work, giving a small room real presence.\n\nLaid in a herringbone pattern, bringing the warmth, touch and feel of hardwood flooring to your steps.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Casablanca — Herringbone Pattern" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "808 mm" }, { label: "Width", value: "101 mm" }, { label: "Total Thickness", value: "8 mm" }, { label: "Plank per Box", value: "24 planks" }, { label: "Area per Box", value: "21.08 sq.ft. / 1.958 sq.mtr." }, { label: "Surface", value: "Low gloss" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/casablanca-bali-teak.jpg"],
+  },
+  {
+    slug: "casablanca-arctic-oak",
+    name: "Casablanca Arctic Oak",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A cool, pale oak in herringbone, bright and graphic without becoming stark.\n\nLaid in a herringbone pattern, bringing the warmth, touch and feel of hardwood flooring to your steps.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Casablanca — Herringbone Pattern" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "808 mm" }, { label: "Width", value: "101 mm" }, { label: "Total Thickness", value: "8 mm" }, { label: "Plank per Box", value: "24 planks" }, { label: "Area per Box", value: "21.08 sq.ft. / 1.958 sq.mtr." }, { label: "Surface", value: "Low gloss" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/casablanca-arctic-oak.jpg"],
+  },
+  {
+    slug: "casablanca-american-walnut",
+    name: "Casablanca American Walnut",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Classic American walnut, rich and even-toned, laid in herringbone for a formal finish.\n\nLaid in a herringbone pattern, bringing the warmth, touch and feel of hardwood flooring to your steps.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Casablanca — Herringbone Pattern" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "808 mm" }, { label: "Width", value: "101 mm" }, { label: "Total Thickness", value: "8 mm" }, { label: "Plank per Box", value: "24 planks" }, { label: "Area per Box", value: "21.08 sq.ft. / 1.958 sq.mtr." }, { label: "Surface", value: "Low gloss" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/casablanca-american-walnut.jpg"],
+  },
+  {
+    slug: "casablanca-patagonian-walnut",
+    name: "Casablanca Patagonian Walnut",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A deeper, redder walnut with more movement in the grain than the American cut.\n\nLaid in a herringbone pattern, bringing the warmth, touch and feel of hardwood flooring to your steps.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Casablanca — Herringbone Pattern" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "808 mm" }, { label: "Width", value: "101 mm" }, { label: "Total Thickness", value: "8 mm" }, { label: "Plank per Box", value: "24 planks" }, { label: "Area per Box", value: "21.08 sq.ft. / 1.958 sq.mtr." }, { label: "Surface", value: "Low gloss" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/casablanca-patagonian-walnut.jpg"],
+  },
+  {
+    slug: "casablanca-walnut-bliss",
+    name: "Casablanca Walnut Bliss",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Warm mid-walnut in herringbone — the most forgiving of the range under mixed lighting.\n\nLaid in a herringbone pattern, bringing the warmth, touch and feel of hardwood flooring to your steps.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Casablanca — Herringbone Pattern" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "808 mm" }, { label: "Width", value: "101 mm" }, { label: "Total Thickness", value: "8 mm" }, { label: "Plank per Box", value: "24 planks" }, { label: "Area per Box", value: "21.08 sq.ft. / 1.958 sq.mtr." }, { label: "Surface", value: "Low gloss" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/casablanca-walnut-bliss.jpg"],
+  },
+  {
+    slug: "casablanca-dessert-aspen",
+    name: "Casablanca Dessert Aspen",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A sandy aspen tone, light and dry-looking, that keeps a herringbone floor from feeling heavy.\n\nLaid in a herringbone pattern, bringing the warmth, touch and feel of hardwood flooring to your steps.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Casablanca — Herringbone Pattern" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "808 mm" }, { label: "Width", value: "101 mm" }, { label: "Total Thickness", value: "8 mm" }, { label: "Plank per Box", value: "24 planks" }, { label: "Area per Box", value: "21.08 sq.ft. / 1.958 sq.mtr." }, { label: "Surface", value: "Low gloss" }, { label: "Locking", value: "Smart Click" }, { label: "Edges", value: "V-Groove, waxed for water resistance" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/casablanca-dessert-aspen.jpg"],
+  },
+  {
+    slug: "vestige-walnut-bliss",
+    name: "Vestige Walnut Bliss",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Walnut Bliss brings elegance and warmth to any space with its rich, walnut-toned finish. Its natural wood grain patterns add a touch of sophistication, making it perfect for both modern and traditional interiors.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-walnut-bliss.jpg"],
+  },
+  {
+    slug: "vestige-spruce-frost",
+    name: "Vestige Spruce Frost",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Spruce Frost features light ash-grey tones and delicate wood grain, offering a cool, contemporary look perfect for minimalist interiors. Its durable surface withstands daily wear, making it ideal for high-traffic areas.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-spruce-frost.jpg"],
+  },
+  {
+    slug: "vestige-oak-thar",
+    name: "Vestige Oak Thar",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Light natural tones and subtle wood grain create a bright, airy feel that effortlessly enhances modern and minimal interiors. The smooth finish and organic texture add a sense of calm and sophistication.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-oak-thar.jpg"],
+  },
+  {
+    slug: "vestige-oak-asphalt",
+    name: "Vestige Oak Asphalt",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Deep grey tones and striking wood grain create a contemporary look that adds depth and character. A refined backdrop that complements both minimal and statement furniture while keeping a warm, natural feel.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-oak-asphalt.jpg"],
+  },
+  {
+    slug: "vestige-bali-teak",
+    name: "Vestige Bali Teak",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Bali Teak brings the beauty of natural teak wood into your home with its warm, golden-brown tones and rich wood grain patterns — cosy and inviting in both traditional and modern interiors.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-bali-teak.jpg"],
+  },
+  {
+    slug: "vestige-oak-aura",
+    name: "Vestige Oak Aura",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Golden hues and authentic wood grain add warmth and charm to any space, suiting both traditional and contemporary interiors. Durable and elegant.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-oak-aura.jpg"],
+  },
+  {
+    slug: "vestige-milky-oak",
+    name: "Vestige Milky Oak",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Light, creamy tones bring a sense of spaciousness and calm to any room, making it perfect for minimalistic and Scandinavian-inspired designs.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-milky-oak.jpg"],
+  },
+  {
+    slug: "vestige-golden-spruce",
+    name: "Vestige Golden Spruce",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Rich, golden tones bring warmth and radiance to any space, creating a welcoming atmosphere.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-golden-spruce.jpg"],
+  },
+  {
+    slug: "vestige-walnut-dusk",
+    name: "Vestige Walnut Dusk",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Deep, rich walnut tones create a sense of sophistication, ideal for upscale, modern or classic interiors. The intricate wood grain lends natural beauty, while its sturdy construction ensures long-lasting performance.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-walnut-dusk.jpg"],
+  },
+  {
+    slug: "vestige-merbau",
+    name: "Vestige Merbau",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "A rich, reddish-brown hue brings sophistication and warmth. The distinctive wood grain adds texture and character, complementing both traditional and contemporary designs.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-merbau.jpg"],
+  },
+  {
+    slug: "vestige-oak-victoria",
+    name: "Vestige Oak Victoria",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Rich, natural oak tones provide a balance of warmth and sophistication, ideal for traditional and modern interiors alike. The detailed wood grain exudes timeless beauty.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-oak-victoria.jpg"],
+  },
+  {
+    slug: "vestige-spruce-earth",
+    name: "Vestige Spruce Earth",
+    collection: "wooden-flooring",
+    badge: "Flooring",
+    description:
+      "Rich, earthy tones evoke warmth and tranquillity, perfect for serene living environments. The distinct wood grain enhances the authenticity of each plank.\n\nWax-coated grooves for moisture resistance, suitable above, on and below grade. Floating installation.",
+    specs: [
+      "AC4 grade — passes a 4000-round abrasion test",
+      "Smart Click locking, floating installation",
+      ...SPEC_BASE,
+    ],
+    details: [{ label: "Range", value: "Vestige — European Matte Finish" }, { label: "Core", value: "Superior quality HDF, density 900 kg/cbm" }, { label: "Wear Layer", value: "AC4 aluminium oxide, 4000-round abrasion tested" }, { label: "Length", value: "1220 mm" }, { label: "Width", value: "198 mm" }, { label: "Total Thickness", value: "8.3 mm" }, { label: "Plank per Box", value: "10 planks" }, { label: "Area per Box", value: "26 sq.ft. / 2.415 sq.mtr." }, { label: "Finish", value: "Wood grain and European matte" }, { label: "Locking", value: "Smart Click" }, { label: "Edges / Ends", value: "Straight" }, { label: "Warranty", value: "15 years conditional residential" }, { label: "Application", value: "Residential / Light commercial" }, ...MADE_TO_ORDER],
+    images: ["/catalog/flooring/vestige-spruce-earth.jpg"],
+  },
+];
+
+/**
+ * ZETA Seatings Premium Luxury sofa series.
+ *
+ * Office and reception seating, supplied in three-seater, two-seater and
+ * single-seater configurations. The catalogue lists a price per
+ * configuration; those are trade figures and are deliberately not imported —
+ * this site quotes on enquiry.
+ */
+export const SOFA_PRODUCTS: SeedProduct[] = [
+  {
+    slug: "zeta-sofa-royal",
+    name: "Royal",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Royal — Form meets function, seat meets style. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-royal.jpg"],
+  },
+  {
+    slug: "zeta-sofa-odi",
+    name: "Odi",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Odi — Seating that speaks your style. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-odi.jpg"],
+  },
+  {
+    slug: "zeta-sofa-harshil",
+    name: "Harshil",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Harshil — Sitting made strategic. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-harshil.jpg"],
+  },
+  {
+    slug: "zeta-sofa-lucifer",
+    name: "Lucifer",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Lucifer — Waiting rooms that don't feel like waiting. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-lucifer.jpg"],
+  },
+  {
+    slug: "zeta-sofa-wilson",
+    name: "Wilson",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Wilson — Smart seating for smart business. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-wilson.jpg"],
+  },
+  {
+    slug: "zeta-sofa-k2",
+    name: "K2",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "K2 — Led by design. Loved by professionals. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-k2.jpg"],
+  },
+  {
+    slug: "zeta-sofa-hector",
+    name: "Hector",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Hector — Built to impress. Made to last. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-hector.jpg"],
+  },
+  {
+    slug: "zeta-sofa-fortune",
+    name: "Fortune",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Fortune — The backdrop for your boardroom. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-fortune.jpg"],
+  },
+  {
+    slug: "zeta-sofa-elite",
+    name: "Elite",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Elite — Where design gives you the edge. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-elite.jpg"],
+  },
+  {
+    slug: "zeta-sofa-sparkal",
+    name: "Sparkal",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Sparkal — Designed for first impressions. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-sparkal.jpg"],
+  },
+  {
+    slug: "zeta-sofa-moon",
+    name: "Moon",
+    collection: "sofa",
+    badge: "Sofa",
+    description:
+      "Moon — Seamless style. Part of the ZETA Seatings Premium Luxury series, built for reception areas, boardrooms and executive cabins.",
+    specs: [
+      "Available as three-seater, two-seater and single seater",
+      "Upholstery and finish confirmed on enquiry",
+      ...SPEC_BASE,
+    ],
+    details: [
+      { label: "Range", value: "ZETA Seatings — Premium Luxury Series" },
+      { label: "Configurations", value: "3-seater, 2-seater, single seater" },
+      { label: "Application", value: "Reception, boardroom, executive cabin" },
+      { label: "Upholstery", value: "Leatherette or fabric, colour to choice" },
+      ...MADE_TO_ORDER,
+    ],
+    images: ["/catalog/sofa/zeta-moon.jpg"],
+  },
+];
+
 export const PRODUCTS: SeedProduct[] = [
   ...GI_PRODUCTS,
+  ...FLOORING_PRODUCTS,
+  ...SOFA_PRODUCTS,
   ...ZETA_PRODUCTS,
   ...QEDO_PRODUCTS,
 ];

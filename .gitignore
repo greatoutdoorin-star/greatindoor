@@ -52,3 +52,8 @@ next-env.d.ts
 /public/Qedo-Ecommerce-Images-Final/
 /public/Zeta-Seatings-Ecommerce-Images-Updated/
 /public/*.pdf
+
+# Supplier catalogues dropped in the repo root. Their contents are extracted
+# into public/catalog/ and src/lib/seed-data.ts, so the PDFs themselves are
+# ~69MB of source material that never needs to ship.
+/*.pdf
