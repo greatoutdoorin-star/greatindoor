@@ -25,11 +25,51 @@ No environment variables are required to run the site. These are optional:
 | Variable | Effect if unset |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URLs fall back to `SITE.url` |
-| `NEXT_PUBLIC_SUPABASE_URL` | No remote image host allowed; leads are not persisted |
-| `SUPABASE_SERVICE_ROLE_KEY` | Leads are logged to the server console instead of stored |
+| `NEXT_PUBLIC_SUPABASE_URL` | Catalogue reads fall back to `seed-data.ts`; no admin panel |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | As above — both are needed for any database read |
+| `SUPABASE_SERVICE_ROLE_KEY` | Admin panel cannot write; leads log to the console |
 
 `SUPABASE_SERVICE_ROLE_KEY` is server-only — it must never be prefixed
 `NEXT_PUBLIC_`, which would ship it to the browser.
+
+## Admin panel
+
+`/admin` is a Supabase-backed CMS for products, categories, settings and the
+lead inbox. Setup:
+
+1. Create a Supabase project.
+2. Run `supabase/schema.sql` in the SQL Editor. It creates the tables, RLS
+   policies and the `catalog` storage bucket, and is safe to re-run.
+3. Put the three variables above in `.env.local`.
+4. Migrate the shipped catalogue into the database:
+   ```bash
+   node --experimental-strip-types scripts/migrate-seed-to-supabase.ts
+   ```
+   Idempotent — it upserts on `slug`, so re-running it restores the shipped
+   catalogue over any edits.
+5. Create an admin user under **Authentication → Users** in the Supabase
+   dashboard. There is no sign-up route by design.
+
+### How it holds together
+
+`src/lib/catalog.ts` reads Supabase and **falls back to `seed-data.ts`** on any
+failure. That is deliberate: pages are statically generated, so a failed read at
+build time would otherwise bake empty listings into the whole site. It also
+means the repo still clones and runs with no credentials at all.
+
+Public pages stay static. Saving in the admin panel calls `revalidatePath`, so
+the affected pages regenerate within seconds rather than every visitor paying
+for a database round trip.
+
+Security is enforced in **`src/lib/auth.ts`**, called at the top of every admin
+page, Server Action and API route. `src/proxy.ts` (Next 16's renamed
+`middleware.ts`, and it lives beside `app/`) only does the cheap redirect —
+Next's docs are explicit that proxy is an optimistic check, and that Server
+Actions POST to whatever route rendered them, so a matcher change can silently
+remove its coverage.
+
+Images already in `public/catalog/` keep working; uploads go to Supabase
+Storage, whose host `next.config.ts` already whitelists.
 
 ## Where the content lives
 
@@ -139,11 +179,15 @@ Validate with the [Rich Results Test](https://search.google.com/test/rich-result
 
 ## Not built yet
 
-- **Supabase + admin panel** — content is edited in `seed-data.ts` for now
-  (lead storage is wired; content is not)
-- **Blog** — the routes exist and render empty; no posts written
+- **Blog** — the routes exist and render empty; no posts written, and posts are
+  not yet in the database
 - **Product-page lead capture** — the two forms post to `/api/leads`; the
   product WhatsApp button is still a direct link with no server-side trace
+- **Admin-editable home content** — clientele logos, founder copy, services and
+  values still live in `seed-data.ts`, and the FAQs in `faqs.ts`. Products,
+  categories and settings are in the database; these are not.
+- **Drag-to-reorder** — `sort_order` exists on both tables and is respected on
+  read, but the admin panel has no UI to change it yet
 
 ## Relationship to Great Outdoor
 
