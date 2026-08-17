@@ -39,6 +39,11 @@ export type Product = {
   details: Spec[];
   /** Finish/colour options, listed as text — the choice is made on WhatsApp. */
   colours: string[];
+  /**
+   * Sub-group within the collection, e.g. a panel size. Empty for products in
+   * collections that are not sub-divided.
+   */
+  size: string;
   images: string[];
 };
 
@@ -77,6 +82,7 @@ export const getAllProducts = cache(async (): Promise<Product[]> => {
     // have to guard against undefined.
     details: p.details ?? [],
     colours: p.colours ?? [],
+    size: p.size ?? "",
     images: p.images,
   }));
 });
