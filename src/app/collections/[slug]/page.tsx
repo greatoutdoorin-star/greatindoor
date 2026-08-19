@@ -44,8 +44,15 @@ export default async function CollectionPage({ params }: Props) {
     Collections whose products carry a `size` are shown as tabs, one per
     group, rather than as a single flat grid. Order follows first appearance
     in the catalogue so it matches the supplier's own sequence.
+
+    Never on /collections/all: that list spans every category, so one range
+    having sized variants would tab the whole catalogue and hide everything
+    without a size. Tabs only make sense within a single category.
   */
-  const sizes = [...new Set(products.map((p) => p.size).filter(Boolean))];
+  const sizes =
+    slug === "all"
+      ? []
+      : [...new Set(products.map((p) => p.size).filter(Boolean))];
   const groups: SizeGroup[] = sizes.map((size) => {
     const inGroup = products.filter((p) => p.size === size);
     return {

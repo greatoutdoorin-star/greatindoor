@@ -79,8 +79,11 @@ export default async function Home() {
         </div>
       </section>
 
-      <StylistPromo />
+      {/* Clientele leads: the hotel marks are the strongest trust signal on
+          the page, so they land before the stylist call-to-action rather than
+          after it. */}
       <Clientele />
+      <StylistPromo />
       <SisterBrand />
       <FounderPanel />
     </SiteShell>
