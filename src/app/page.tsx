@@ -9,7 +9,12 @@ import ProductCard from "@/components/ProductCard";
 import SisterBrand from "@/components/SisterBrand";
 import SiteShell from "@/components/SiteShell";
 import StylistPromo from "@/components/StylistPromo";
-import { getAllProducts, getVisibleCollections, getSettings } from "@/lib/catalog";
+import {
+  getAllProducts,
+  getHeroSlides,
+  getSettings,
+  getVisibleCollections,
+} from "@/lib/catalog";
 
 /**
  * How many products the featured row shows. Capped so "View all" leads
@@ -23,11 +28,24 @@ const FEATURED_LIMIT = 8;
 const FEATURED_MOBILE_LIMIT = 6;
 
 export default async function Home() {
-  const [products, collections, settings] = await Promise.all([
+  const [products, collections, settings, heroSlides] = await Promise.all([
     getAllProducts(),
     getVisibleCollections(),
     getSettings(),
+    getHeroSlides(),
   ]);
+
+  /*
+    Admin-managed hero slides. Empty until some are added, in which case
+    HeroPanel renders its own built-in artwork instead.
+
+    The headline doubles as alt text: a hero carrying baked-in wording still
+    needs that wording available to a screen reader.
+  */
+  const slides = heroSlides.map((slide) => ({
+    src: slide.image,
+    alt: slide.headline ?? "Great Indoors",
+  }));
 
   const featured = products.slice(0, FEATURED_LIMIT);
 
@@ -44,7 +62,7 @@ export default async function Home() {
       collections={navCollections}
       announcement={settings.announcement_text}
     >
-      <HeroPanel />
+      <HeroPanel slides={slides} />
       <Marquee items={tickerItems} />
       <CategoryGrid collections={collections} />
 

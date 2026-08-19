@@ -34,8 +34,9 @@ No environment variables are required to run the site. These are optional:
 
 ## Admin panel
 
-`/admin` is a Supabase-backed CMS for products, categories, settings and the
-lead inbox. Setup:
+`/admin` is a Supabase-backed CMS for products, categories, hero slides, blog
+posts, settings and the lead inbox. It mirrors the sister site's admin, so the
+two are one system to operate. Setup:
 
 1. Create a Supabase project.
 2. Run `supabase/schema.sql` in the SQL Editor. It creates the tables, RLS
@@ -61,12 +62,24 @@ Public pages stay static. Saving in the admin panel calls `revalidatePath`, so
 the affected pages regenerate within seconds rather than every visitor paying
 for a database round trip.
 
-Security is enforced in **`src/lib/auth.ts`**, called at the top of every admin
-page, Server Action and API route. `src/proxy.ts` (Next 16's renamed
-`middleware.ts`, and it lives beside `app/`) only does the cheap redirect —
-Next's docs are explicit that proxy is an optimistic check, and that Server
-Actions POST to whatever route rendered them, so a matcher change can silently
-remove its coverage.
+Security has three layers, deliberately:
+
+1. **RLS in Postgres.** Writes are granted to `authenticated` only, so admin
+   mutations run as the signed-in user and the database rejects an
+   unauthenticated write outright. Leads are readable only by an admin.
+2. **`src/lib/auth.ts`**, called at the top of every admin page, Server Action
+   and API route.
+3. **`src/proxy.ts`** (Next 16's renamed `middleware.ts`, beside `app/`) does
+   the cheap redirect. Only a convenience — Next's docs are explicit that proxy
+   is an optimistic check, and that Server Actions POST to whatever route
+   rendered them, so a matcher change can silently remove its coverage.
+
+The service-role client bypasses RLS and is reserved for lead intake, where
+there is no user session to act as.
+
+Admin pages live under `src/app/admin/(protected)/`, whose layout holds the
+auth gate and `force-dynamic`. The login page sits outside that group so it can
+render while signed out.
 
 Images already in `public/catalog/` keep working; uploads go to Supabase
 Storage, whose host `next.config.ts` already whitelists.
@@ -80,9 +93,9 @@ Storage, whose host `next.config.ts` already whitelists.
 | FAQ content | `src/lib/faqs.ts` |
 | Design tokens (colours, type scale, sidebar width) | `src/app/globals.css` |
 
-`src/lib/catalog.ts` is the data access layer. It reads from `seed-data.ts`
-today, but every function is already async and shaped for a database — so moving
-to Supabase is a change inside that one file, with no page or component touched.
+`src/lib/catalog.ts` is the data access layer. It reads Supabase and falls back
+to `seed-data.ts`, so the table above describes the fallback content — anything
+managed in `/admin` is edited there, not in code.
 
 ## Design tokens
 
@@ -133,38 +146,18 @@ alter table leads enable row level security;   -- writes use the service role
 Without them, leads are logged to the server console (`[lead] {...}`) and the
 form still works — enabling persistence is an env-var change, not a code change.
 
-## Hero banner
+## Hero
 
-The home hero renders a banner image from `public/catalog/banners/`. Artwork is
-composed 2100×1181 with the product on the right and clear space on the left —
-`next.config.ts` caps `deviceSizes` at 2100px, so anything wider is wasted bytes.
+The home hero is a slider. Slides are managed in **`/admin/hero`**; with none
+in the database `HeroPanel` renders its own built-in artwork from
+`public/catalog/banners/`, so the page is never blank.
 
-To swap it, change the one object at the top of `src/components/HeroPanel.tsx`:
+Artwork is 16:9 and the frame uses that aspect, so nothing is cropped.
+`next.config.ts` caps `deviceSizes` at 2100px — anything wider is wasted bytes.
 
-```ts
-const HERO = {
-  src: "/catalog/banners/hero-executive-chair.png",
-  tone: "dark",   // "dark" | "light" — must match the artwork
-};
-```
-
-`tone` is not a preference: it selects the heading colour, the scrim and the
-secondary button style. A light banner with `tone: "dark"` renders white text on
-a near-white background. Change both fields together.
-
-Banners on hand:
-
-| File | Where | Config |
-| --- | --- | --- |
-| `hero-executive-chair.png` | hero (live) | `tone: "dark"`, `layout: "side"` |
-| `hero-cane-chair-light.png` | hero (spare) | `tone: "light"`, `layout: "side"` |
-| `hero-category-row-light.png` | band above the category grid | — |
-
-The category-row artwork is **not** used as a hero. A full-width row of products
-has no clear area for overlaid copy, and cropping it to hero proportions cuts
-the end products off — so it renders uncropped in `CategoryGrid` instead, where
-it can be shown whole. `layout: "top"` exists for banners that do leave space
-above, but no current artwork suits it.
+The slides carry their own baked-in wording, so nothing is overlaid on them: no
+headline, no buttons, no scrim. The headline and subtext fields exist for
+artwork that leaves clear space, and the headline doubles as alt text.
 
 ## SEO
 
@@ -179,13 +172,13 @@ Validate with the [Rich Results Test](https://search.google.com/test/rich-result
 
 ## Not built yet
 
-- **Blog** — the routes exist and render empty; no posts written, and posts are
-  not yet in the database
+- **Blog** — the routes and the admin editor exist; no posts written yet
 - **Product-page lead capture** — the two forms post to `/api/leads`; the
   product WhatsApp button is still a direct link with no server-side trace
 - **Admin-editable home content** — clientele logos, founder copy, services and
   values still live in `seed-data.ts`, and the FAQs in `faqs.ts`. Products,
-  categories and settings are in the database; these are not.
+  categories, hero slides, posts and settings are in the database; these are
+  not.
 - **Drag-to-reorder** — `sort_order` exists on both tables and is respected on
   read, but the admin panel has no UI to change it yet
 

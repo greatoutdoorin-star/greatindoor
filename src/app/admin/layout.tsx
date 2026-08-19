@@ -7,19 +7,16 @@ export const metadata: Metadata = {
 };
 
 /**
- * Admin shell.
+ * Root admin layout — metadata only.
  *
- * Deliberately not SiteShell — no storefront sidebar, no WhatsApp FAB, no
- * enquiry popup. This is a tool, and the shop chrome would only get in the way.
- *
- * No auth check here on purpose: layouts do not re-render on navigation, so a
- * session check placed here would not run again as the admin moves between
- * pages. Each page calls requireAdmin() itself.
+ * The chrome and the auth gate live in (protected)/layout.tsx, so the login
+ * page can render outside them: it must be reachable while signed out, and
+ * nesting it under the gate would redirect it to itself.
  */
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="min-h-screen bg-surface">{children}</div>;
+  return children;
 }

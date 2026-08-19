@@ -303,11 +303,29 @@ export async function getRelatedProducts(
 }
 
 /**
- * Hero slides. The live site's hero is a single static dark panel rather than a
- * carousel, so this returns nothing for now — HeroPanel renders the fixed
- * composition. Kept so the signature survives the move to Supabase.
+ * Hero slides.
+ *
+ * Empty by default: HeroPanel falls back to its own built-in composition when
+ * this returns nothing, so the home page works before anything is added in the
+ * admin panel and keeps working if the database is unreachable.
  */
-export const getHeroSlides = cache(async (): Promise<HeroSlide[]> => []);
+export const getHeroSlides = cache(async (): Promise<HeroSlide[]> => {
+  const supabase = readClient();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("hero_slides")
+    .select("image, headline, subtext, link")
+    .eq("visible", true)
+    .order("sort_order", { ascending: true });
+
+  if (error || !data) {
+    if (error) console.error("[catalog] hero read failed:", error.message);
+    return [];
+  }
+
+  return data as HeroSlide[];
+});
 
 export type Post = {
   slug: string;
@@ -318,8 +336,39 @@ export type Post = {
   publishedAt: string | null;
 };
 
-/** No posts yet — the blog ships empty until content is written. */
-export const getPosts = cache(async (): Promise<Post[]> => []);
+/**
+ * Published blog posts, newest first.
+ *
+ * A row is published only once `published_at` is set and in the past, so a
+ * draft can be written in the admin panel without appearing on the site.
+ */
+export const getPosts = cache(async (): Promise<Post[]> => {
+  const supabase = readClient();
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select("slug, title, excerpt, cover, body, published_at")
+    .eq("visible", true)
+    .not("published_at", "is", null)
+    .lte("published_at", new Date().toISOString())
+    .order("published_at", { ascending: false });
+
+  if (error || !data) {
+    if (error) console.error("[catalog] posts read failed:", error.message);
+    return [];
+  }
+
+  type Row = Omit<Post, "publishedAt"> & { published_at: string | null };
+  return (data as Row[]).map((row) => ({
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    cover: row.cover,
+    body: row.body,
+    publishedAt: row.published_at,
+  }));
+});
 
 export async function getPost(slug: string): Promise<Post | undefined> {
   const posts = await getPosts();

@@ -46,3 +46,18 @@ export async function createClient(): Promise<SupabaseClient> {
     },
   });
 }
+
+/**
+ * Authenticated client for admin writes.
+ *
+ * Same cookie-backed session as `createClient()` above — the distinction is
+ * intent, not mechanism. Writes made through this run as the signed-in user,
+ * so the `admin write` RLS policies apply and Postgres rejects an
+ * unauthenticated caller. That makes the database the security boundary rather
+ * than the UI, which matters because Server Actions are public POST endpoints.
+ *
+ * The service-role client in ./admin.ts bypasses RLS entirely and is reserved
+ * for the lead-intake route and one-off scripts, where there is no user
+ * session to act as.
+ */
+export const createAuthClient = createClient;

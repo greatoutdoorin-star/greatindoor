@@ -3,8 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAdminOrThrow } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient, createAuthClient } from "@/lib/supabase/server";
 import type { Spec } from "@/lib/catalog";
 
 /**
@@ -20,6 +19,11 @@ import type { Spec } from "@/lib/catalog";
  * Actions take an identifier plus the change, never a whole row from the
  * client: a well-formed object can still name a record the caller should not
  * be able to write.
+ *
+ * Writes go through the authenticated client, so they run as the signed-in
+ * user and the `admin write` RLS policies apply. Postgres rejects an
+ * unauthenticated write even if a check here were ever missed — the database
+ * is the boundary, not this file.
  */
 
 export type ActionState = { error?: string; ok?: boolean } | undefined;
@@ -123,7 +127,7 @@ export async function saveProduct(
     visible: form.get("visible") === "on",
   };
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
 
   // A changed slug is a move, not an insert: update in place so the row keeps
   // its sort order and created_at instead of leaving a duplicate behind.
@@ -153,7 +157,7 @@ export async function setProductVisibility(
 ): Promise<void> {
   await requireAdminOrThrow();
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { error } = await supabase
     .from("products")
     .update({ visible })
@@ -168,7 +172,7 @@ export async function setProductVisibility(
 export async function deleteProduct(slug: string): Promise<void> {
   await requireAdminOrThrow();
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { error } = await supabase.from("products").delete().eq("slug", slug);
 
   if (error) throw new Error(error.message);
@@ -210,7 +214,7 @@ export async function saveCollection(
     visible: form.get("visible") === "on",
   };
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const isRename = originalSlug && originalSlug !== slug;
 
   // The products.collection foreign key is ON UPDATE CASCADE, so renaming a
@@ -236,7 +240,7 @@ export async function setCollectionVisibility(
 ): Promise<void> {
   await requireAdminOrThrow();
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { error } = await supabase
     .from("collections")
     .update({ visible })
@@ -251,7 +255,7 @@ export async function setCollectionVisibility(
 export async function deleteCollection(slug: string): Promise<void> {
   await requireAdminOrThrow();
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { error } = await supabase.from("collections").delete().eq("slug", slug);
 
   if (error) {
@@ -279,7 +283,7 @@ export async function setLeadHandled(
 ): Promise<void> {
   await requireAdminOrThrow();
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { error } = await supabase
     .from("leads")
     .update({ handled })
@@ -331,7 +335,7 @@ export async function saveSettings(
     };
   }
 
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { error } = await supabase
     .from("settings")
     .upsert(rows, { onConflict: "key" });
@@ -343,4 +347,156 @@ export async function saveSettings(
   revalidatePath("/admin/settings");
 
   return { ok: true };
+}
+
+// ---------------------------------------------------------------------------
+// Hero slides
+// ---------------------------------------------------------------------------
+
+export async function saveHeroSlide(
+  _prev: ActionState,
+  form: FormData,
+): Promise<ActionState> {
+  await requireAdminOrThrow();
+
+  const image = lines(form.get("image"))[0] ?? "";
+  if (!image) return { error: "Add an image for the slide." };
+
+  const rawId = text(form, "id");
+  const row = {
+    image,
+    headline: text(form, "headline") || null,
+    subtext: text(form, "subtext") || null,
+    link: text(form, "link") || null,
+    visible: form.get("visible") === "on",
+    sort_order: Number(text(form, "sort_order")) || 0,
+  };
+
+  const supabase = await createAuthClient();
+  const { error } = rawId
+    ? await supabase.from("hero_slides").update(row).eq("id", Number(rawId))
+    : await supabase.from("hero_slides").insert(row);
+
+  if (error) return { error: error.message };
+
+  // The hero is on the home page only.
+  revalidatePath("/");
+  revalidatePath("/admin/hero");
+  return { ok: true };
+}
+
+export async function deleteHeroSlide(id: number): Promise<void> {
+  await requireAdminOrThrow();
+
+  const supabase = await createAuthClient();
+  const { error } = await supabase.from("hero_slides").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/");
+  revalidatePath("/admin/hero");
+}
+
+export async function setHeroSlideVisibility(
+  id: number,
+  visible: boolean,
+): Promise<void> {
+  await requireAdminOrThrow();
+
+  const supabase = await createAuthClient();
+  const { error } = await supabase
+    .from("hero_slides")
+    .update({ visible })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/");
+  revalidatePath("/admin/hero");
+}
+
+// ---------------------------------------------------------------------------
+// Blog posts
+// ---------------------------------------------------------------------------
+
+export async function savePost(
+  _prev: ActionState,
+  form: FormData,
+): Promise<ActionState> {
+  await requireAdminOrThrow();
+
+  const originalSlug = text(form, "originalSlug");
+  const slug = normaliseSlug(text(form, "slug"));
+  const title = text(form, "title");
+
+  if (!title) return { error: "Give the post a title." };
+  if (!slug) return { error: "Give the post a URL slug." };
+
+  // A datetime-local value carries no timezone. Treating it as local time is
+  // what the author means by "publish at 9am".
+  const publishedRaw = text(form, "published_at");
+  let publishedAt: string | null = null;
+  if (publishedRaw) {
+    const parsed = new Date(publishedRaw);
+    if (Number.isNaN(parsed.getTime())) {
+      return { error: "That publish date doesn't look right." };
+    }
+    publishedAt = parsed.toISOString();
+  }
+
+  const row = {
+    slug,
+    title,
+    excerpt: text(form, "excerpt"),
+    cover: lines(form.get("cover"))[0] || null,
+    body: text(form, "body"),
+    published_at: publishedAt,
+    visible: form.get("visible") === "on",
+  };
+
+  const supabase = await createAuthClient();
+  const isRename = originalSlug && originalSlug !== slug;
+
+  const { error } = isRename
+    ? await supabase.from("posts").update(row).eq("slug", originalSlug)
+    : await supabase.from("posts").upsert(row, { onConflict: "slug" });
+
+  if (error) {
+    if (error.code === "23505") {
+      return { error: `The slug "${slug}" is already used by another post.` };
+    }
+    return { error: error.message };
+  }
+
+  revalidatePath("/blogs");
+  revalidatePath("/blogs/[slug]", "page");
+  revalidatePath("/sitemap.xml");
+  redirect(`/admin/posts?saved=${encodeURIComponent(slug)}`);
+}
+
+export async function deletePost(slug: string): Promise<void> {
+  await requireAdminOrThrow();
+
+  const supabase = await createAuthClient();
+  const { error } = await supabase.from("posts").delete().eq("slug", slug);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/blogs");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/admin/posts");
+}
+
+export async function setPostVisibility(
+  slug: string,
+  visible: boolean,
+): Promise<void> {
+  await requireAdminOrThrow();
+
+  const supabase = await createAuthClient();
+  const { error } = await supabase
+    .from("posts")
+    .update({ visible })
+    .eq("slug", slug);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/blogs");
+  revalidatePath("/admin/posts");
 }

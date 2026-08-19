@@ -1,5 +1,5 @@
 import { getAdminUser } from "@/lib/auth";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createAuthClient } from "@/lib/supabase/server";
 
 /**
  * Image upload to Supabase Storage.
@@ -77,7 +77,8 @@ export async function POST(request: Request) {
   const objectPath = `products/${base || "image"}-${unique}.${extension}`;
 
   try {
-    const supabase = createAdminClient();
+    // Authenticated, so the storage RLS policies apply too.
+    const supabase = await createAuthClient();
     const { error } = await supabase.storage
       .from("catalog")
       .upload(objectPath, file, {

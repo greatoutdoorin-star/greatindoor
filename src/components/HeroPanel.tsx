@@ -12,8 +12,10 @@ import { STATS } from "@/lib/site";
  * contrast scrim. Adding any of those would fight the image rather than sit on
  * it. The CTAs live further down the page, on the sections that need them.
  *
- * To change the slides, edit SLIDES. Artwork is 16:9; the frame uses that
- * aspect so nothing is ever cropped.
+ * Slides come from the `hero_slides` table via the admin panel. SLIDES below
+ * is the fallback used when that table is empty or unreachable, so the home
+ * page never renders a blank hero. Artwork is 16:9; the frame uses that aspect
+ * so nothing is ever cropped.
  */
 const SLIDES = [
   {
@@ -36,23 +38,38 @@ const SLIDES = [
 
 const INTERVAL_MS = 6000;
 
-export default function HeroPanel() {
+export type HeroSlideInput = {
+  src: string;
+  alt: string;
+};
+
+export default function HeroPanel({ slides }: { slides?: HeroSlideInput[] }) {
+  // Fall back to the built-in artwork when nothing has been added in admin.
+  const items = slides && slides.length > 0 ? slides : SLIDES;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const go = useCallback((next: number) => {
-    setIndex(((next % SLIDES.length) + SLIDES.length) % SLIDES.length);
-  }, []);
+  // count rather than `items` as the dependency: the array is rebuilt on every
+  // render of the parent, so depending on it would recreate `go` each time and
+  // restart the autoplay timer continuously.
+  const count = items.length;
+
+  const go = useCallback(
+    (next: number) => {
+      setIndex(((next % count) + count) % count);
+    },
+    [count],
+  );
 
   // Advance on a timer. `index` is a dependency, so the timer restarts on every
   // change — a manual jump therefore gets a full dwell rather than the
   // remainder of the previous tick, and the current index is read from the
   // closure instead of a ref.
   useEffect(() => {
-    if (paused || SLIDES.length < 2) return;
+    if (paused || count < 2) return;
     const id = setTimeout(() => go(index + 1), INTERVAL_MS);
     return () => clearTimeout(id);
-  }, [paused, go, index]);
+  }, [paused, go, index, count]);
 
   /*
     Touch swipe. The slides are absolutely-positioned layers rather than a
@@ -101,7 +118,7 @@ export default function HeroPanel() {
         // less than the height would.
         className="relative aspect-[4/3] w-full overflow-hidden bg-surface sm:aspect-[16/9]"
       >
-        {SLIDES.map((slide, i) => (
+        {items.map((slide, i) => (
           <div
             key={slide.src}
             aria-hidden={i !== index}
@@ -123,9 +140,9 @@ export default function HeroPanel() {
           </div>
         ))}
 
-        {SLIDES.length > 1 && (
+        {items.length > 1 && (
           <div className="absolute inset-x-0 bottom-5 z-10 flex justify-center gap-2.5">
-            {SLIDES.map((slide, i) => (
+            {items.map((slide, i) => (
               <button
                 key={slide.src}
                 type="button"

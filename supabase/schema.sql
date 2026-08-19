@@ -65,6 +65,46 @@ create index if not exists products_collection_idx on products (collection);
 create index if not exists products_sort_idx on products (collection, sort_order);
 
 -- ---------------------------------------------------------------------------
+-- Hero slides
+--
+-- The home hero. Ships empty: HeroPanel falls back to its built-in slides when
+-- no rows exist, so the site works before anything is added here.
+-- ---------------------------------------------------------------------------
+
+create table if not exists hero_slides (
+  id          bigint generated always as identity primary key,
+  image       text not null,
+  headline    text,
+  subtext     text,
+  link        text,
+  visible     boolean not null default true,
+  sort_order  integer not null default 0,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
+);
+
+-- ---------------------------------------------------------------------------
+-- Blog posts
+--
+-- /blogs and /blogs/[slug] already render; they have simply had nothing to
+-- show. A row with published_at in the future, or null, stays unpublished.
+-- ---------------------------------------------------------------------------
+
+create table if not exists posts (
+  slug          text primary key,
+  title         text not null,
+  excerpt       text not null default '',
+  cover         text,
+  body          text not null default '',
+  published_at  timestamptz,
+  visible       boolean not null default true,
+  created_at    timestamptz not null default now(),
+  updated_at    timestamptz not null default now()
+);
+
+create index if not exists posts_published_idx on posts (published_at desc);
+
+-- ---------------------------------------------------------------------------
 -- Settings
 --
 -- Flat key/value rather than a one-row table: the admin panel edits a handful
@@ -126,24 +166,38 @@ drop trigger if exists settings_updated_at on settings;
 create trigger settings_updated_at before update on settings
   for each row execute function set_updated_at();
 
+drop trigger if exists hero_slides_updated_at on hero_slides;
+create trigger hero_slides_updated_at before update on hero_slides
+  for each row execute function set_updated_at();
+
+drop trigger if exists posts_updated_at on posts;
+create trigger posts_updated_at before update on posts
+  for each row execute function set_updated_at();
+
 -- ---------------------------------------------------------------------------
 -- Row level security
 --
--- Every table has RLS on. The site reads catalogue data with the anon key, so
--- collections/products/settings allow anonymous SELECT and nothing else.
+-- Every table has RLS on.
 --
--- Leads are readable ONLY by an authenticated admin — an enquiry carries a
--- name and phone number, and the anon key ships to the browser.
+-- Reads: the public site uses the anon key, so catalogue content is
+-- world-readable. Leads are the exception — an enquiry carries a name and
+-- phone number, and the anon key ships to the browser, so only a signed-in
+-- admin may read them.
 --
--- All writes go through the service role, which bypasses RLS entirely. There
--- is deliberately no anon or authenticated write policy anywhere.
+-- Writes: allowed for `authenticated` only. This is what makes the database
+-- itself the security boundary rather than the UI — an unauthenticated caller
+-- POSTing straight to a Server Action is rejected by Postgres, not merely by
+-- the admin panel declining to render a form.
 -- ---------------------------------------------------------------------------
 
-alter table collections enable row level security;
-alter table products    enable row level security;
-alter table settings    enable row level security;
-alter table leads       enable row level security;
+alter table collections  enable row level security;
+alter table products     enable row level security;
+alter table hero_slides  enable row level security;
+alter table posts        enable row level security;
+alter table settings     enable row level security;
+alter table leads        enable row level security;
 
+-- Public read.
 drop policy if exists "public read collections" on collections;
 create policy "public read collections" on collections
   for select to anon, authenticated using (true);
@@ -152,26 +206,77 @@ drop policy if exists "public read products" on products;
 create policy "public read products" on products
   for select to anon, authenticated using (true);
 
+drop policy if exists "public read hero_slides" on hero_slides;
+create policy "public read hero_slides" on hero_slides
+  for select to anon, authenticated using (true);
+
+drop policy if exists "public read posts" on posts;
+create policy "public read posts" on posts
+  for select to anon, authenticated using (true);
+
 drop policy if exists "public read settings" on settings;
 create policy "public read settings" on settings
   for select to anon, authenticated using (true);
 
--- Signed-in admins only. No anon policy: leads must never be publicly readable.
+-- Admin write. `for all` covers insert, update and delete.
+drop policy if exists "admin write collections" on collections;
+create policy "admin write collections" on collections
+  for all to authenticated using (true) with check (true);
+
+drop policy if exists "admin write products" on products;
+create policy "admin write products" on products
+  for all to authenticated using (true) with check (true);
+
+drop policy if exists "admin write hero_slides" on hero_slides;
+create policy "admin write hero_slides" on hero_slides
+  for all to authenticated using (true) with check (true);
+
+drop policy if exists "admin write posts" on posts;
+create policy "admin write posts" on posts
+  for all to authenticated using (true) with check (true);
+
+drop policy if exists "admin write settings" on settings;
+create policy "admin write settings" on settings
+  for all to authenticated using (true) with check (true);
+
+-- Leads: signed-in admins only, for both reading and updating (the inbox
+-- marks them handled). Inserts still arrive through the service role in
+-- src/lib/leads.ts, which bypasses RLS — deliberately, so the public enquiry
+-- form never needs a write policy of its own.
 drop policy if exists "admins read leads" on leads;
 create policy "admins read leads" on leads
   for select to authenticated using (true);
+
+drop policy if exists "admins update leads" on leads;
+create policy "admins update leads" on leads
+  for update to authenticated using (true) with check (true);
 
 -- ---------------------------------------------------------------------------
 -- Storage
 --
 -- Admin image uploads. Public read so next/image can fetch them — the host is
--- already whitelisted in next.config.ts. Writes are service-role only.
+-- already whitelisted in next.config.ts.
+--
+-- Writes are restricted to signed-in admins here as well as in the upload
+-- route, so a leaked anon key still cannot put objects in the bucket.
 -- ---------------------------------------------------------------------------
 
 insert into storage.buckets (id, name, public)
 values ('catalog', 'catalog', true)
-on conflict (id) do nothing;
+on conflict (id) do update set public = true;
 
 drop policy if exists "public read catalog images" on storage.objects;
 create policy "public read catalog images" on storage.objects
   for select to anon, authenticated using (bucket_id = 'catalog');
+
+drop policy if exists "admin upload catalog images" on storage.objects;
+create policy "admin upload catalog images" on storage.objects
+  for insert to authenticated with check (bucket_id = 'catalog');
+
+drop policy if exists "admin update catalog images" on storage.objects;
+create policy "admin update catalog images" on storage.objects
+  for update to authenticated using (bucket_id = 'catalog');
+
+drop policy if exists "admin delete catalog images" on storage.objects;
+create policy "admin delete catalog images" on storage.objects
+  for delete to authenticated using (bucket_id = 'catalog');

@@ -1,4 +1,4 @@
-import { createAdminClient } from "./supabase/admin";
+import { createAuthClient } from "./supabase/server";
 import type { Collection, Product, Spec } from "./catalog";
 
 /**
@@ -10,8 +10,11 @@ import type { Collection, Product, Spec } from "./catalog";
  * hidden ones — and must surface a failure rather than quietly showing seed
  * data the admin cannot actually edit.
  *
- * Every function here uses the service-role client, so callers must establish
- * the visitor is an admin first (see requireAdmin in src/lib/auth.ts).
+ * Every function reads as the signed-in admin, so RLS applies: leads are
+ * readable only by `authenticated`, and an unauthenticated caller gets nothing
+ * back rather than the whole inbox. Callers should still establish the visitor
+ * is an admin first (see requireAdmin in src/lib/auth.ts) so the page
+ * redirects rather than rendering empty.
  */
 
 export function isSupabaseConfigured(): boolean {
@@ -67,7 +70,7 @@ const PRODUCT_COLUMNS =
   "slug, name, description, collection, badge, specs, details, colours, size, images, visible, sort_order";
 
 export async function listProducts(): Promise<AdminProduct[]> {
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_COLUMNS)
@@ -81,7 +84,7 @@ export async function listProducts(): Promise<AdminProduct[]> {
 export async function getAdminProduct(
   slug: string,
 ): Promise<AdminProduct | null> {
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { data, error } = await supabase
     .from("products")
     .select(PRODUCT_COLUMNS)
@@ -93,7 +96,7 @@ export async function getAdminProduct(
 }
 
 export async function listCollections(): Promise<AdminCollection[]> {
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
 
   const [collections, products] = await Promise.all([
     supabase
@@ -158,7 +161,7 @@ export type Lead = {
 };
 
 export async function listLeads(limit = 200): Promise<Lead[]> {
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { data, error } = await supabase
     .from("leads")
     .select(
@@ -186,7 +189,7 @@ export async function listLeads(limit = 200): Promise<Lead[]> {
 }
 
 export async function getAdminSettings(): Promise<Record<string, string>> {
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
   const { data, error } = await supabase.from("settings").select("key, value");
 
   if (error) throw new Error(`Could not load settings: ${error.message}`);
@@ -206,7 +209,7 @@ export async function getDashboardStats(): Promise<{
   leads: number;
   newLeads: number;
 }> {
-  const supabase = createAdminClient();
+  const supabase = await createAuthClient();
 
   const [products, hidden, collections, leads, newLeads] = await Promise.all([
     supabase.from("products").select("slug", { count: "exact", head: true }),
@@ -229,4 +232,111 @@ export async function getDashboardStats(): Promise<{
     leads: leads.count ?? 0,
     newLeads: newLeads.count ?? 0,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Hero slides
+// ---------------------------------------------------------------------------
+
+export type AdminHeroSlide = {
+  id: number;
+  image: string;
+  headline: string;
+  subtext: string;
+  link: string;
+  visible: boolean;
+  sortOrder: number;
+};
+
+export async function listHeroSlides(): Promise<AdminHeroSlide[]> {
+  const supabase = await createAuthClient();
+  const { data, error } = await supabase
+    .from("hero_slides")
+    .select("id, image, headline, subtext, link, visible, sort_order")
+    .order("sort_order", { ascending: true });
+
+  if (error) throw new Error(`Could not load hero slides: ${error.message}`);
+
+  type Row = {
+    id: number;
+    image: string;
+    headline: string | null;
+    subtext: string | null;
+    link: string | null;
+    visible: boolean;
+    sort_order: number;
+  };
+
+  return (data as Row[]).map((s) => ({
+    id: s.id,
+    image: s.image,
+    headline: s.headline ?? "",
+    subtext: s.subtext ?? "",
+    link: s.link ?? "",
+    visible: s.visible,
+    sortOrder: s.sort_order,
+  }));
+}
+
+// ---------------------------------------------------------------------------
+// Blog posts
+// ---------------------------------------------------------------------------
+
+export type AdminPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  cover: string;
+  body: string;
+  /** ISO string, or empty when the post is still a draft. */
+  publishedAt: string;
+  visible: boolean;
+};
+
+type PostRow = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  cover: string | null;
+  body: string;
+  published_at: string | null;
+  visible: boolean;
+};
+
+function toAdminPost(row: PostRow): AdminPost {
+  return {
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    cover: row.cover ?? "",
+    body: row.body,
+    publishedAt: row.published_at ?? "",
+    visible: row.visible,
+  };
+}
+
+const POST_COLUMNS = "slug, title, excerpt, cover, body, published_at, visible";
+
+export async function listPosts(): Promise<AdminPost[]> {
+  const supabase = await createAuthClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select(POST_COLUMNS)
+    // Drafts (null published_at) sort first, where they need attention.
+    .order("published_at", { ascending: false, nullsFirst: true });
+
+  if (error) throw new Error(`Could not load posts: ${error.message}`);
+  return (data as PostRow[]).map(toAdminPost);
+}
+
+export async function getAdminPost(slug: string): Promise<AdminPost | null> {
+  const supabase = await createAuthClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select(POST_COLUMNS)
+    .eq("slug", slug)
+    .maybeSingle();
+
+  if (error) throw new Error(`Could not load post: ${error.message}`);
+  return data ? toAdminPost(data as PostRow) : null;
 }
