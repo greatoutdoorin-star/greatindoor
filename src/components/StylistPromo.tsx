@@ -3,8 +3,8 @@ import { CONTACT, WHATSAPP_DISPLAY } from "@/lib/site";
 import { generalEnquiryLink } from "@/lib/whatsapp";
 
 /**
- * "Get a confirmation call with our interior stylist" band, plus the four
- * service promises beneath it.
+ * "Need help choosing the right product?" band, plus the four service
+ * promises beneath it.
  */
 export default function StylistPromo() {
   return (
@@ -14,8 +14,8 @@ export default function StylistPromo() {
           className="mx-auto max-w-2xl uppercase leading-snug"
           style={{ fontSize: "var(--text-h2)" }}
         >
-          Get a confirmation call with our{" "}
-          <span className="text-accent">interior stylist</span>
+          Need help choosing{" "}
+          <span className="text-accent">the right product?</span>
         </h2>
         <p
           className="mt-3 font-body text-ink-muted"
