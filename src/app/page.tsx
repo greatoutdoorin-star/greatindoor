@@ -1,8 +1,8 @@
 import Link from "next/link";
+import BeforeAfter from "@/components/BeforeAfter";
 import CategoryGrid from "@/components/CategoryGrid";
 import Clientele from "@/components/Clientele";
 import FounderPanel from "@/components/FounderPanel";
-import MaterialsBand from "@/components/MaterialsBand";
 import HeroPanel from "@/components/HeroPanel";
 import Marquee from "@/components/Marquee";
 import ProductCard from "@/components/ProductCard";
@@ -80,10 +80,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Materials before clientele: it closes the product half of the page
-          on craft, and its full-bleed photography breaks up a long run of
-          white product cards. */}
-      <MaterialsBand />
+      {/* Before/after closes the product half of the page: the grid shows what
+          we sell, this shows what it does to a room. Tinted band, so it
+          separates from the white product cards above it. */}
+      <BeforeAfter />
 
       {/* Clientele leads: the hotel marks are the strongest trust signal on
           the page, so they land before the stylist call-to-action rather than

@@ -4424,45 +4424,6 @@ export const VALUES = [
 ] as const;
 
 /** Founder copy, taken from the live site. */
-/**
- * Materials band.
- *
- * Full-width macro shots, one per material, stacked and stepped through with
- * the chevron control. The photography is the point: the rest of the site is
- * product cut-outs on white, and this is the only place the materials are
- * shown as materials rather than as finished goods.
- *
- * Artwork is cropped to 2100x700 with the left third kept clear, because the
- * label chip sits there.
- */
-export const MATERIALS = [
-  {
-    label: "Wood",
-    image: "/catalog/materials/wood.webp",
-    blurb: "Teak, oak and engineered ply, finished to order.",
-  },
-  {
-    label: "Fabric",
-    image: "/catalog/materials/fabric.webp",
-    blurb: "Upholstery in linen, weave and performance cloth.",
-  },
-  {
-    label: "Cane",
-    image: "/catalog/materials/cane.webp",
-    blurb: "Hand-woven rattan for chair backs and panelling.",
-  },
-  {
-    label: "Leather",
-    image: "/catalog/materials/leather.webp",
-    blurb: "Full-grain hide for executive and lounge seating.",
-  },
-  {
-    label: "Aluminium",
-    image: "/catalog/materials/aluminium.webp",
-    blurb: "Powder-coated frames for outdoor and contract use.",
-  },
-] as const;
-
 export const FOUNDER = {
   name: "Mr. Tarun Bhatia",
   eyebrow: "Our Founder",
